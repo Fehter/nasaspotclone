@@ -1,0 +1,17 @@
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\bin\Debug\netstandard2.0\test_xamarin_app.deps.json
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\bin\Debug\netstandard2.0\test_xamarin_app.dll
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\bin\Debug\netstandard2.0\test_xamarin_app.pdb
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\GridDemoPage.xaml.g.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\HelloXamlPage.xaml.g.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\HomePage.xaml.g.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\ListViewPage1.xaml.g.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\LoginPage.xaml.g.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\RequestDetailPage.xaml.g.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\RequestsPage.xaml.g.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\test_xamarin_app.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\test_xamarin_app.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\test_xamarin_app.AssemblyInfo.cs
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\test_xamarin_app.dll
+C:\Users\Admin\source\repos\test_xamarin_app\test_xamarin_app\test_xamarin_app\obj\Debug\netstandard2.0\test_xamarin_app.pdb
