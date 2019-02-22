@@ -1,0 +1,173 @@
+Create SCHEMA IF NOT EXISTS SPOT;
+
+CREATE TABLE IF NOT EXISTS spot.Users
+(
+email VARCHAR(100) PRIMARY KEY NOT NULL,
+password VARCHAR(100) NOT NULL,
+first_name VARCHAR(100) NOT NULL,
+last_name VARCHAR(100) NOT NULL,
+phone_number VARCHAR(30),
+isAmbassador TINYINT(1) NOT NULL,
+isPresenter TINYINT(1) NOT NULL,
+isAdministrator TINYINT(1) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS spot.Presentations
+(
+presentationID	INT(11) NOT NULL AUTO_INCREMENT,
+ambassador_email VARCHAR(100) NOT NULL,
+presenter_email VARCHAR(100),
+notes	VARCHAR(1000),
+time_date_created DATETIME NOT NULL,
+organization_name VARCHAR(100),
+grade_level VARCHAR(100),
+number_of_presentations INT(11),
+number_of_students_per_presentation INT(11),
+subject_requested VARCHAR(100),
+concerns VARCHAR(1000),
+isMonday_preferred TINYINT(1),
+isTuesday_preferred TINYINT(1),
+isWednesday_preferred TINYINT(1),
+isThursday_preferred TINYINT(1),
+isFriday_preferred TINYINT(1),
+isSaturday_preferred TINYINT(1),
+isSunday_preferred TINYINT(1),
+proposed_time_date DATETIME NOT NULL,
+organization_street_address VARCHAR(100),
+organization_zip VARCHAR(100),
+organization_city VARCHAR(100),
+organization_state VARCHAR(100),
+PRIMARY KEY (presentationID, ambassador_email),
+FOREIGN KEY (ambassador_email) REFERENCES Users(email),
+FOREIGN KEY (presenter_email) REFERENCES Users(email)
+);
+
+USE spot;
+
+CREATE VIEW spot.GetAllPresentations AS
+	SELECT U.email, U.first_name, U.last_name, U.phone_number, P.notes,
+			P.organization_name, P.grade_level, P.number_of_presentations,
+            P.number_of_students_per_presentation, P.subject_requested,
+            P.concerns, P.isMonday_preferred, P.isTuesday_preferred,
+            P.isWednesday_preferred, P.isThursday_preferred,
+            P.isFriday_preferred, P.isSaturday_preferred,
+            P.isSunday_preferred,  P.proposed_time_date,
+            P.organization_street_address, P.organization_zip,
+            P.organization_city, P.organization_state
+	FROM Users U, Presentations P
+	WHERE U.email = P.ambassador_email;
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail1@test.com', 'password1', 'Fname1', 'Lname1', '304-555-5501', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail2@test.com', 'password2', 'Fname2', 'Lname2', '304-555-5502', 0, 1, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail3@test.com', 'password3', 'Fname3', 'Lname3', '304-555-5503', 0, 0, 1);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail4@test.com', 'password4', 'Fname4', 'Lname4', '304-555-5504', 1, 1, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail5@test.com', 'password5', 'Fname5', 'Lname5', '304-555-5505', 1, 0, 1);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail6@test.com', 'password6', 'Fname6', 'Lname6', '304-555-5506', 0, 1, 1);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail7@test.com', 'password7', 'Fname7', 'Lname7', '304-555-5507', 0, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail8@test.com', 'password8', 'Fname8', 'Lname8', '304-555-5508', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail9@test.com', 'password9', 'Fname9', 'Lname9', '304-555-5509', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail10@test.com', 'password10', 'Fname10', 'Lname10', '304-555-5510', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail11@test.com', 'password11', 'Fname11', 'Lname11', '304-555-5511', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail12@test.com', 'password12', 'Fname12', 'Lname12', '304-555-5512', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail13@test.com', 'password13', 'Fname13', 'Lname13', '304-555-5513', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail14@test.com', 'password14', 'Fname14', 'Lname14', '304-555-5514', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail15@test.com', 'password15', 'Fname15', 'Lname15', '304-555-5516', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail16@test.com', 'password16', 'Fname16', 'Lname16', '304-555-5516', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail17@test.com', 'password17', 'Fname17', 'Lname17', '304-555-5518', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail18@test.com', 'password18', 'Fname18', 'Lname18', '304-555-5518', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail19@test.com', 'password19', 'Fname19', 'Lname19', '304-555-5519', 1, 0, 0);
+
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+VALUES ('testuseremail20@test.com', 'password20', 'Fname20', 'Lname20', '304-555-5520', 1, 0, 0);
+
+INSERT INTO Presentations (presentationID, ambassador_email, presenter_email, notes, time_date_created,
+ organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
+ subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
+ isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ proposed_time_date, organization_street_address, organization_zip, organization_city, 
+ organization_state)
+VALUES (1, 'testuseremail1@test.com', NULL, NULL, '2019-01-01 15:00:00',
+ 'GradeSchool1', 1, 1, 10,
+ 'Mars', '2 special needs children may interrupt lesson', 0, 0, 0,
+ 0, 0, 0, 0, '2019-02-01 15:00:00', '111 Test Ave.', 26554, 'Fairmont', 'WV');
+ 
+ INSERT INTO Presentations (presentationID, ambassador_email, presenter_email, notes, time_date_created,
+ organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
+ subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
+ isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ proposed_time_date, organization_street_address, organization_zip, organization_city, 
+ organization_state)
+VALUES (2, 'testuseremail1@test.com', 'testuseremail2@test.com', 'Please make sure to include information about the moon landing', '2019-01-01 15:00:00',
+ 'GradeSchool1', 1, 1, 10,
+ 'Earths Moon', '2 special needs children may interrupt lesson', 1, 0, 0,
+ 0, 0, 0, 0, '2019-02-02 12:00:00', '111 Test Ave.', 26554, 'Fairmont', 'WV');
+ 
+ INSERT INTO Presentations (presentationID, ambassador_email, presenter_email, notes, time_date_created,
+ organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
+ subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
+ isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ proposed_time_date, organization_street_address, organization_zip, organization_city, 
+ organization_state)
+VALUES (3, 'testuseremail8@test.com', NULL, NULL, '2019-03-01 15:00:00',
+ 'College', 13, 7, 20,
+ 'Composition of the 8 planets and pluto', NULL, 0, 1, 0,
+ 0, 0, 0, 0, '2019-04-01 15:00:00', '789 Testing Rd.', 26554, 'Fairmont', 'West Virginia');
+ 
+ INSERT INTO Presentations (presentationID, ambassador_email, presenter_email, notes, time_date_created,
+ organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
+ subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
+ isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ proposed_time_date, organization_street_address, organization_zip, organization_city, 
+ organization_state)
+VALUES (4, 'testuseremail9@test.com', NULL, NULL, '2019-02-22 8:00:00',
+ 'HighSchool1', 9, 1, 10,
+ 'How the solar system formed', NULL, 0, 0, 1,
+ 0, 0, 0, 0, '2019-02-23 10:00:00', '12 Flibitty Gibbits St.', 12345, 'Fake City', 'Tennessee');
+ 
+ INSERT INTO Presentations (presentationID, ambassador_email, presenter_email, notes, time_date_created,
+ organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
+ subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
+ isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ proposed_time_date, organization_street_address, organization_zip, organization_city, 
+ organization_state)
+VALUES (5, 'testuseremail1@test.com', 'testuseremail4@test.com', NULL, '2018-01-01 15:00:00',
+ 'HighSchool4', 12, 2, 250,
+ 'The Model of the Universe and how it came to be.', 'There will be conspiracy theorists in the audience', 0, 0, 0,
+ 1, 0, 0, 0, '2019-12-31 15:00:00', '999 Test Difficulty Rd.', 98765, 'Masterville', 'California');
