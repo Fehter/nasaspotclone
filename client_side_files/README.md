@@ -13,5 +13,5 @@ To create such a project (which you should only have to do once):
 - On the right, in the "Solution Explorer", right click on "SPOT_App" and select "Open Folder in File Explorer".
 - File Explorer should now open with the directory "..\repos\SPOT_App\SPOT_App\SPOT_App".
 - Paste the source code files from this repository into the directory.
-When I did pasted the files, Visual Studio automatically recognized and added them to the project.  
-I was then able to compile and run the program after selecting "Debug", "Any CPU", and "SPOT_App.Android" from the three fields to the left of the Compile/Run button on Visual Studio.
+
+When I did pasted the files, Visual Studio automatically recognized and added them to the project. I was then able to compile and run the program after selecting "Debug", "Any CPU", and "SPOT_App.Android" from the three fields to the left of the Compile/Run button on Visual Studio.
