@@ -31,7 +31,8 @@ namespace SPOT_App
             {
                 requestCollection.Add(new RequestViewModel
                 {
-                    Name = "test Name " + x,
+                    FirstName = "test FirstName " + x,
+                    LastName = "test LastName " + x,
                     OrganizationName = "test OrganizationName " + x,
                     Email = "test Email " + x,
                     PrimaryPhoneNumber = "test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber " + x,

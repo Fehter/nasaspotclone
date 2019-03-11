@@ -15,9 +15,12 @@ namespace SPOT_App.ViewModels
         // <Label Text="{Binding OrganizationName}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
         // in a .xaml file because the "{Binding OrganizationName}" would not be able to "get" the information.
         // Take this with some salt though -- I'm not comfortable with this yet.
-        public string Name { get; set; }
-        public string OrganizationName { get; set; }
+        //public string ID { get; set; }
         public string Email { get; set; }
+        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string OrganizationName { get; set; }        
         public string PrimaryPhoneNumber { get; set; }
         public string AlternativePhoneNumber { get; set; }
         public string ContactTimes { get; set; }
@@ -42,9 +45,10 @@ namespace SPOT_App.ViewModels
             // This is "shorthand" code that constructs/initializes the FormUrlEncodedContent object -- see the slightly-longer-but-clearer commented out equivalent code below if you are confused.
             FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("Name", this.Name),
-                new KeyValuePair<string, string>("OrganizationName", this.OrganizationName),
                 new KeyValuePair<string, string>("Email", this.Email),
+                new KeyValuePair<string, string>("FirstName", this.FirstName),
+                new KeyValuePair<string, string>("LastName", this.LastName),
+                new KeyValuePair<string, string>("OrganizationName", this.OrganizationName),                
                 new KeyValuePair<string, string>("PrimaryPhoneNumber", this.PrimaryPhoneNumber),
                 new KeyValuePair<string, string>("AlternativePhoneNumber", this.AlternativePhoneNumber),
                 new KeyValuePair<string, string>("ContactTimes", this.ContactTimes),
@@ -94,9 +98,10 @@ namespace SPOT_App.ViewModels
         public string GetContents() // Utility function to quickly get contents of all data members.
         {
             return
-                Name + "\n" +
-                OrganizationName + "\n" +
                 Email + "\n" +
+                FirstName + "\n" +
+                LastName + "\n" +
+                OrganizationName + "\n" +                
                 PrimaryPhoneNumber + "\n" +
                 AlternativePhoneNumber + "\n" +
                 ContactTimes + "\n" +

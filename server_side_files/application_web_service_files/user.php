@@ -78,5 +78,29 @@ class User
             echo "PHP web service: user.php: test_setData(): Failed to set data" . $e->getMessage().PHP_EOL;
         }
     }
+    
+    function getRequestData($startRow, $endRow)
+    {
+        // Get data from rows $startRow to $endRow from the "getallpresentations" view of the "spot" database.
+        $query = "SELECT * FROM spot.getallpresentations LIMIT ".$startRow.", ".$endRow;
+        
+        try
+        {           
+            // Prepare and execute the query.
+            // The query results are stored in the $statement variable.
+            $statement = $this->connection->prepare($query);        
+            
+            $statement->execute();      
+            
+            //echo "PHP web service: user.php: getRequestData(): Successfully got data".PHP_EOL;
+        }
+        
+        catch(PDOException $e)
+        {
+            //echo "PHP web service: user.php: getRequestData(): Failed to get data" . $e->getMessage().PHP_EOL;
+        }       
+        
+        return $statement;    
+    }
 }
 ?>

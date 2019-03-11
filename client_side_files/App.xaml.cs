@@ -27,9 +27,10 @@ namespace SPOT_App
             // Construct the test RequestViewModel object.
             requestViewModel = new RequestViewModel
             {
-                Name = "123Name" + x,
-                OrganizationName = "123OrgName" + x,
                 Email = "123Email" + x,
+                FirstName = "123FirstName" + x,
+                LastName = "123LastName" + x,
+                OrganizationName = "123OrgName" + x,                
                 PrimaryPhoneNumber = "test PrimaryPhoneNumber " + x,
                 AlternativePhoneNumber = "test AlternativePhoneNumber " + x,
                 ContactTimes = "test ContactTimes " + x,
@@ -53,9 +54,11 @@ namespace SPOT_App
             // The following two lines are calls to the test functions of the RestService class.
             // NOTE: since these two functions are asynchronous operations, they will NOT necessarilly print their outputs into the console in the same order they were called.
             // I recommend calling the functions one at a time.
-            restService.test_getData();
-
+            //restService.test_getData();
             //restService.test_setData(requestViewModel);
+
+            // Call the RestService's GetRequestData() with integer arguments 0 and 100 -- this means that the PHP file on the web server will query information for the first 100 requests in the database.
+            restService.GetRequestData(0, 100);
 
             // I've commented out the following line because, for testing connectivity, we do not need to construct any GUI related objects.
             //MainPage = new NavigationPage(new LoginPage()); // This causes the LoginPage to be the first thing the user sees.

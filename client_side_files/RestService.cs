@@ -8,6 +8,7 @@ using System.Text;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using Newtonsoft.Json;
 using SPOT_App.ViewModels; // This is necessary because the RequestViewModel class is defined in the "SPOT_App.ViewModels" namespace.
                            // Without this line, attempting to declare/initialize a RequestViewModel object would fail.
 
@@ -115,6 +116,62 @@ namespace SPOT_App
             }
 
             Debug.WriteLine("********** RestService.test_setData() END **********");
+        }
+
+        // This function sends a POST request to the "get_request_data.php" file on the Apache server.
+        // It uses the integer arguments "startRow" and "endRow" to tell the "get_request_data.php" file which rows (effectively which requests) should be queried from the database.
+        public async void GetRequestData(int startRow, int endRow)
+        {            
+            Debug.WriteLine("********** RestService.GetRequestData() START **********");
+            
+            // Identify the target PHP file.
+            var uri = new Uri("http://192.168.1.126:80/test/application_files/get_request_data.php");
+
+            try
+            {   
+                // Create the content that will be posted to the target PHP file.
+                // This content will be used by the PHP file to determine which rows should be queried from the database.
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("startRow", startRow.ToString()),
+                    new KeyValuePair<string, string>("endRow", endRow.ToString())                    
+                });
+                
+                // Send the POST request to the PHP file at the specified URI.
+                HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+               
+                //byte[] tempArray = await response.Content.ReadAsByteArrayAsync();
+                //string responseContent = Encoding.UTF8.GetString(tempArray);
+
+                // This line, for our purposes, seemingly has the same effect as the above two commented-out lines.
+                // Read the HttpResponseMessage's Content property as a string.                
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                // Because the PHP file sends back a JSON encoded associative array, we can use the "Newtonsoft.Json" package to deserialize the JSON string and, thereby, create a list of RequestViewModel objects (which I've called rvmList).
+                List<RequestViewModel> rvmList = JsonConvert.DeserializeObject<List<RequestViewModel>>(responseContent);
+
+                Debug.WriteLine("RestService.GetRequestData(): RESPONSE CONTENT AS FOLLOWS:");
+
+                // This will print the JSON string itself -- this is what is "deserialized" by the JsonConvert.DeserializeObject() function.
+                Debug.WriteLine(responseContent);
+
+                Debug.WriteLine("RestService.GetRequestData(): RESPONSE CONTENT END");
+
+                // To make sure that the JsonConvert.DeserializeObject() function was successful, loop through the list and call the GetContents() function on each object.
+                // If the JsonConvert.DeserializeObject() was successful, then the values of some of properties of the RequestViewModel objects should match what is stored in the SQL database.
+                foreach (RequestViewModel rvm in rvmList)
+                {
+                    Debug.WriteLine(rvm.GetContents());
+                }
+            }
+                        
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.GetRequestData(): something went wrong while testing connection to web service!");
+            }
+
+            Debug.WriteLine("********** RestService.GetRequestData() END **********");
         }
     }
 }
