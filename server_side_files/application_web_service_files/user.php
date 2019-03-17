@@ -7,6 +7,12 @@ class User
     // It is set when the User class is constructed (the constructor requires that a connection is passed to it).
     private $connection;
     
+    // This variable stores the name of the SQL database table that holds user credentials.
+    private $user_table_name = "users";
+    
+    // This variable stores the name of the SQL database view that holds presentation information.
+    private $presentations_view_name = "getallpresentations";
+    
     // The following two variables will contain the email/password combination of this user.
     // I suppose we will need to encrypt these somehow.
     public $email;
@@ -102,5 +108,30 @@ class User
         
         return $statement;    
     }
+        
+    // This function checks (via a query to the SQL database) whether the email/password combination contained in this User instance exists in the SQL spot.users table.
+    // It will return the query results to the PHP file that called this function.
+    function login()
+    {        
+        $query = "SELECT email, password FROM spot.".$this->user_table_name." WHERE email='".$this->email."' AND password='".$this->password."'";
+        // The above query is equivalent to this following example query assuming email == "testuseremail1@test.com" and password == "password1":
+        // SELECT email, password FROM spot.users WHERE email='testuseremail1@test.com' AND password='password1'
+        
+        try
+        {           
+            // Prepare and execute the query.
+            // The query results are stored in the $statement variable.
+            $statement = $this->connection->prepare($query);        
+            
+            $statement->execute();
+        }
+        
+        catch(PDOException $e)
+        {
+            //echo "PHP web service: user.php: login(): PDOException: " . $e->getMessage().PHP_EOL;
+        }  
+        
+        return $statement;
+    }        
 }
 ?>

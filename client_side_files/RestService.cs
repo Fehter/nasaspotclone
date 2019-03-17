@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
+using SPOT_App.Models; // This is necessary because the LoginResponse class is defined in the SPOT_App.Models namespace.
 using SPOT_App.ViewModels; // This is necessary because the RequestViewModel class is defined in the "SPOT_App.ViewModels" namespace.
                            // Without this line, attempting to declare/initialize a RequestViewModel object would fail.
 
@@ -172,6 +173,65 @@ namespace SPOT_App
             }
 
             Debug.WriteLine("********** RestService.GetRequestData() END **********");
+        }
+
+        // This is a TEST login function -- it will send the argument email and password combination to the login.php file on the Apache server.
+        // That login.php file will return one of two associative arrays:
+        // 1: A "login successful" array that will have the following key/value pairs (note: the format is "key" -> "value"):
+        //      - "Status" -> "true" // This is a boolean in the PHP file but gets converted to a string when the LoginResponse is constructed.
+        //      - "Message" -> "Login successful" // This is a string
+        //      - "Email" -> *Email* // This the Email of the user as a string
+        //
+        // 2: A "login unsuccessful" array that will have the following key/value pairs:
+        //      - "Status" -> "false" // This is a boolean in the PHP file but gets converted to a string when the LoginResponse is constructed.
+        //      - "Message" -> "Login unsuccessful: invalid email and password combination" // This is a string
+        //
+        // These associative arrays are then converted into a LoginResponse object via a call to JsonConvert.DeserializeObject().
+        // A LoginResponse object has get/set Status, Message, and Email functions -- these allow you to easily see if the attempted login was successful.
+        public async void test_login(string email, string password)
+        {
+            Debug.WriteLine("********** RestService.test_login() START **********");
+
+            // Identify the target PHP file.
+            var uri = new Uri("http://192.168.1.126:80/test/application_files/login.php");
+
+            try
+            {
+                // Create the content that will be posted to the target PHP file.
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("email", email),
+                    new KeyValuePair<string, string>("password", password)
+                });
+
+                // Send the POST request to the PHP file at the specified URI.
+                HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+
+                // Read the HttpResponseMessage's Content property as a string.                
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                // Because the PHP file sends back a JSON encoded associative array, we can use the "Newtonsoft.Json" package to deserialize the JSON string and, thereby, create LoginResponse object.
+                LoginResponse loginResponse = JsonConvert.DeserializeObject<LoginResponse>(responseContent);
+
+                Debug.WriteLine("RestService.test_login(): RESPONSE CONTENT AS FOLLOWS:");
+
+                // This will print the JSON string itself -- this is what is "deserialized" by the JsonConvert.DeserializeObject() function.
+                Debug.WriteLine(responseContent);
+
+                Debug.WriteLine("RestService.test_login(): RESPONSE CONTENT END");
+
+                // Print the contents of the LoginResponse to see if the attempted login was successful.
+                // In this case "successful" just means that the email/password combination given to this test_login() function was in the SQL database.
+                Debug.WriteLine(loginResponse.GetContents());
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.test_login(): something went wrong!");
+            }
+
+            Debug.WriteLine("********** RestService.test_login() END **********");
         }
     }
 }
