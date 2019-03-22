@@ -16,7 +16,7 @@ class User
     // The following two variables will contain the email/password combination of this user.
     // I suppose we will need to encrypt these somehow.
     public $email;
-    public $password;
+    private $password;
 
     // The constructor for this User class.
     public function __construct($databaseConnection)
@@ -132,6 +132,11 @@ class User
         }  
         
         return $statement;
-    }        
+    }  
+
+    function setPassword($password)
+    {
+        $this->password = $password;
+    }    
 }
 ?>

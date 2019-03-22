@@ -2,11 +2,11 @@
 class Database
 {
     // The following variables are the properties of the Database class.
-    // $server_name, $database_name, $username, and $password are used to connect to a specific SQL database with a specific connection (in this case the connection is "test1").
+    // $server_name, $database_name, $database_connection_username, and $database_connection_password are used to connect to a specific SQL database with a specific connection (in this case the connection is "test1").
     private $server_name = "localhost";
     private $database_name = "spot";
-    private $username = "test1";
-    private $password = "test1";
+    private $database_connection_username = "test1";
+    private $database_connection_password = "test1";
     
     // This data member will contain the connection to the SQL database.
     public $connection;
@@ -18,7 +18,7 @@ class Database
         try 
         {
             // Create the connection.
-            $this->connection = new PDO("mysql:host=" . $this->server_name . ";dbname=" . $this->database_name, $this->username, $this->password);
+            $this->connection = new PDO("mysql:host=" . $this->server_name . ";dbname=" . $this->database_name, $this->database_connection_username, $this->database_connection_password);
             
             // Set ERRMODE attribute of the PDO such that, if something goes wrong, it will throw an Exception.
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

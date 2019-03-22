@@ -25,24 +25,24 @@ namespace SPOT_App
     public class RestService
     {
         // This class will serve as our method of communication to the PHP web service and, by extension, the SQL database.
-        HttpClient client; 
+        HttpClient client;
 
         // Default constructor.
         public RestService()
         {
             client = new HttpClient();
         }
-        
+
         // This function will send a GET request to the "test_get_data.php" file on the Apache server.
         // The function will then wait for a response from the PHP file -- the contents of the response and whether we get a response at all
         // is defined entirely by the PHP file.
         public async void test_getData()
         {
             // Print a message to the Debug console in Visual Studio to indicate that the test_getData() function has been called.
-            Debug.WriteLine("********** RestService.test_getData() START **********"); 
+            Debug.WriteLine("********** RestService.test_getData() START **********");
 
             // Create a "Uniform Resource Identifier" that holds the IP, port number, and directory location of the PHP web service file "test_get_data.php".
-            var uri = new Uri("http://192.168.1.126:80/test/application_files/test_get_data.php"); 
+            var uri = new Uri("http://10.0.2.2:80/test/application_files/test_get_data.php");
 
             try
             {
@@ -81,7 +81,7 @@ namespace SPOT_App
             Debug.WriteLine("********** RestService.test_setData() START **********");
 
             // Create a "Uniform Resource Identifier" that holds the IP, port number, and directory location of the PHP web service file "test_set_data.php".
-            var uri = new Uri("http://192.168.1.126:80/test/application_files/test_set_data.php");
+            var uri = new Uri("http://10.0.2.2:80/test/application_files/test_set_data.php");
 
             try
             {
@@ -122,25 +122,25 @@ namespace SPOT_App
         // This function sends a POST request to the "get_request_data.php" file on the Apache server.
         // It uses the integer arguments "startRow" and "endRow" to tell the "get_request_data.php" file which rows (effectively which requests) should be queried from the database.
         public async void GetRequestData(int startRow, int endRow)
-        {            
+        {
             Debug.WriteLine("********** RestService.GetRequestData() START **********");
-            
+
             // Identify the target PHP file.
-            var uri = new Uri("http://192.168.1.126:80/test/application_files/get_request_data.php");
+            var uri = new Uri("http://10.0.2.2:80/test/application_files/get_request_data.php");
 
             try
-            {   
+            {
                 // Create the content that will be posted to the target PHP file.
                 // This content will be used by the PHP file to determine which rows should be queried from the database.
                 FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("startRow", startRow.ToString()),
-                    new KeyValuePair<string, string>("endRow", endRow.ToString())                    
+                    new KeyValuePair<string, string>("endRow", endRow.ToString())
                 });
-                
+
                 // Send the POST request to the PHP file at the specified URI.
                 HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
-               
+
                 //byte[] tempArray = await response.Content.ReadAsByteArrayAsync();
                 //string responseContent = Encoding.UTF8.GetString(tempArray);
 
@@ -165,7 +165,7 @@ namespace SPOT_App
                     Debug.WriteLine(rvm.GetContents());
                 }
             }
-                        
+
             catch (Exception e)
             {
                 Debug.WriteLine(e);
@@ -193,7 +193,7 @@ namespace SPOT_App
             Debug.WriteLine("********** RestService.test_login() START **********");
 
             // Identify the target PHP file.
-            var uri = new Uri("http://192.168.1.126:80/test/application_files/login.php");
+            var uri = new Uri("http://10.0.2.2:80/test/application_files/login.php");
 
             try
             {
@@ -232,6 +232,221 @@ namespace SPOT_App
             }
 
             Debug.WriteLine("********** RestService.test_login() END **********");
+        }
+
+        //==============================================================================================================================================================================//
+
+        // This is a test function. It is meant to connect to a PHP web service that remembers the username of the user who logs in (this is done via $_SESSION in the PHP file).
+        // This function will perform four actions:
+        // 1: it will attempt to login.
+        // 2: it will attempt to get request data -- this should only succeed if the previous login attempt succeeded.
+        // 3: it will attempt to logout.
+        // 4: it will attempt to get request data again -- this should fail provided the previous logout was successful.
+        public async void test_Login_GetRequestData_Logout_GetRequestData_WithSession()
+        {
+            Debug.WriteLine("********** RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession() START **********");
+
+            // The user to login as.
+            string email = "testuseremail1@test.com";
+            string password = "password1";
+            
+            // The start and end rows of request data to get from the SQL database.
+            int startRow = 0;
+            int endRow = 100;
+
+            //----------------------------------------------------------------------------------------------------------//
+            // Attempt login.
+
+            var uri = new Uri("http://10.0.2.2:80/test/application_files/login.php");
+
+            try
+            {
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("email", email),
+                    new KeyValuePair<string, string>("password", password)
+                });
+
+                HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+                string responseContent = await response.Content.ReadAsStringAsync();                
+
+                Debug.WriteLine("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): LOGIN: RESPONSE CONTENT AS FOLLOWS:");
+
+                Debug.WriteLine(responseContent);
+
+                Debug.WriteLine("-----------------------------------------------------------------------------------------");
+
+                try
+                {
+                    LoginResponse loginResponse = JsonConvert.DeserializeObject<LoginResponse>(responseContent);
+
+                    Debug.WriteLine(loginResponse.GetContents());
+                }
+
+                catch (Exception e)
+                {
+                    Debug.Fail("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): LOGIN: something went wrong while deserializing \"responseContent\":");
+                    Debug.WriteLine(e);
+                }               
+
+                Debug.WriteLine("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): LOGIN: RESPONSE CONTENT END");                
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): LOGIN: something went wrong while logging in!");
+            }
+
+            //----------------------------------------------------------------------------------------------------------//
+            // Attempt to get request data.
+
+            uri = new Uri("http://10.0.2.2:80/test/application_files/get_request_data.php");
+
+            try
+            {
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("startRow", startRow.ToString()),
+                    new KeyValuePair<string, string>("endRow", endRow.ToString())
+                });
+
+                HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): GET REQUEST DATA: RESPONSE CONTENT AS FOLLOWS:");
+
+                Debug.WriteLine(responseContent);
+
+                Debug.WriteLine("-----------------------------------------------------------------------------------------");
+
+                try
+                {
+                    List<RequestViewModel> rvmList = JsonConvert.DeserializeObject<List<RequestViewModel>>(responseContent);
+
+                    foreach (RequestViewModel rvm in rvmList)
+                    {
+                        Debug.WriteLine(rvm.GetContents());
+                    }
+                }
+
+                catch (Exception e)
+                {
+                    Debug.Fail("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): GET REQUEST DATA: something went wrong while deserializing \"responseContent\":");
+                    Debug.WriteLine(e);
+                }
+
+                Debug.WriteLine("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): GET REQUEST DATA: RESPONSE CONTENT END");                
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): GET REQUEST DATA: something went wrong while trying to get request data!");
+            }
+
+            //----------------------------------------------------------------------------------------------------------//
+            // Attempt to logout.
+
+            uri = new Uri("http://10.0.2.2:80/test/application_files/logout.php");
+
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): LOGOUT: RESPONSE CONTENT AS FOLLOWS:");
+                Debug.WriteLine(responseContent);
+                Debug.WriteLine("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): LOGOUT: RESPONSE CONTENT END");
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): LOGOUT: something went wrong while attempting to logout!");
+            }
+            
+            //----------------------------------------------------------------------------------------------------------//
+            // Attempt to get request data again. This should fail since we've already logged out.
+
+            uri = new Uri("http://10.0.2.2:80/test/application_files/get_request_data.php");
+
+            try
+            {
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("startRow", startRow.ToString()),
+                    new KeyValuePair<string, string>("endRow", endRow.ToString())
+                });
+
+                HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+                string responseContent = await response.Content.ReadAsStringAsync();                
+
+                Debug.WriteLine("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): GET REQUEST DATA: RESPONSE CONTENT AS FOLLOWS:");
+
+                Debug.WriteLine(responseContent);
+
+                Debug.WriteLine("-----------------------------------------------------------------------------------------");
+
+                try
+                {
+                    List<RequestViewModel> rvmList = JsonConvert.DeserializeObject<List<RequestViewModel>>(responseContent);
+
+                    foreach (RequestViewModel rvm in rvmList)
+                    {
+                        Debug.WriteLine(rvm.GetContents());
+                    }
+                }
+
+                catch (Exception e)
+                {
+                    Debug.Fail("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): GET REQUEST DATA: something went wrong while deserializing \"responseContent\":");
+                    Debug.WriteLine(e);                    
+                }
+
+                Debug.WriteLine("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): GET REQUEST DATA: RESPONSE CONTENT END");
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession(): GET REQUEST DATA: something went wrong while trying to get request data!");
+            }
+
+            //----------------------------------------------------------------------------------------------------------//
+
+            Debug.WriteLine("********** RestService.test_Login_GetRequestData_Logout_GetRequestData_WithSession() END **********");
+        }
+
+        //==============================================================================================================================================================================// 
+        
+        // This test function will send POST request to the echo_POST.php file.
+        // That PHP file will echo the contents of the POST back to this function.
+        // The results are printed to the console.
+        public async void test_POST(RequestViewModel requestViewModel)
+        {            
+            Debug.WriteLine("********** RestService.test_POST() START **********");
+
+            var uri = new Uri("http://10.0.2.2:80/test/application_files/echo_POST.php");
+
+            try
+            {
+                HttpContent httpContent = requestViewModel.GetFormUrlEncodedContent();
+                HttpResponseMessage response = await client.PostAsync(uri, httpContent);                                
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine("RestService.test_POST(): RESPONSE CONTENT AS FOLLOWS:");                                
+                Debug.WriteLine(responseContent);
+                Debug.WriteLine("RestService.test_POST(): RESPONSE CONTENT END");                
+            }
+            
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.test_POST(): something went wrong!");
+            }
+
+            Debug.WriteLine("********** RestService.test_POST() END **********");
         }
     }
 }

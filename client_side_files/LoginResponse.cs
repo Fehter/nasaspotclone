@@ -5,7 +5,7 @@
     // See the test_login() function in the RestService file for an example where this class is used.
     class LoginResponse
     {
-        public string Status { get; set; }
+        public bool Status { get; set; }
         public string Message { get; set; }
         public string Email { get; set; }
 

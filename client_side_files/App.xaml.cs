@@ -62,13 +62,21 @@ namespace SPOT_App
 
             // Call the RestService's test_login() function with the specified email and password arguments.
             // Note that "testuseremail1@test.com" and "password1" is an actual email/password combination in the SQL database (assuming that you used Kyle's latest script to create the "spot" database).
-            restService.test_login("testuseremail1@test.com", "password1");
+            //restService.test_login("testuseremail1@test.com", "password1");
 
             // The following test_login() calls will all fail (assuming you are using Kyle's database):
             //restService.test_login("testuseremail11@test.com", "password1");
             //restService.test_login("testuseremail1@test.com", "");
             //restService.test_login("", "password1");
             //restService.test_login("testuseremail1@test.com", "password11");
+
+            //==============================================================================================================================================================================//
+
+            restService.test_Login_GetRequestData_Logout_GetRequestData_WithSession();
+
+            //restService.test_POST(requestViewModel);
+
+            //==============================================================================================================================================================================//
 
             // I've commented out the following line because, for testing connectivity, we do not need to construct any GUI related objects.
             //MainPage = new NavigationPage(new LoginPage()); // This causes the LoginPage to be the first thing the user sees.

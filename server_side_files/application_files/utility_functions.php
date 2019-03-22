@@ -1,5 +1,23 @@
 <?php
-// This is a recursive function that is intended to echo the contends of a associative (as in key value pair) array where each value could be another array.
+
+// This function returns a "login response" array which is used in the login.php file.
+// The first argument must be a boolean (otherwise an exception is thrown).
+// The third argument is optional -- it is set to an empty string by default.
+function createLoginResponse($status, $message, $email = "")
+{
+    if (!is_bool($status))
+        throw new Exception("createLoginResponse(): error: the argument variable \$status was not a boolean.");
+    
+    else
+    {
+        return array(
+            "Status" => $status,
+            "Message" => $message,
+            "Email" => $email);
+    }
+}
+
+// This is a recursive function that is intended to echo the contents of a associative (as in key value pair) array where each value could be another array.
 function echoKeyValuePair($key, $value)
 {
     if (is_array($value))
@@ -12,7 +30,7 @@ function echoKeyValuePair($key, $value)
     
     else
     {      
-        echo $key.":".$value.PHP_EOL;
+        echo $key." => ".$value.PHP_EOL;
     }
 } 
 

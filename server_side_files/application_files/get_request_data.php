@@ -4,8 +4,18 @@ include_once '../application_files/database.php';
 include_once '../application_files/user.php';  
 include_once '../application_files/utility_functions.php';
 
+// In order to check if user is logged in, we have to have access to the $_SESSION variable.
+// We can get this by calling the following function.
+session_start();
+
+// If the key "logged_in_user_email" is not set or is empty, then the user isn't logged in and shouldn't be able to get request data.
+if (!isset($_SESSION['logged_in_user_email']) || empty($_SESSION['logged_in_user_email']))
+{
+    exit("get_request_data.php: error: User attempted to get request data but wasn't logged in.");
+}
+
 // If the POST request doesn't have values for the keys "startRow" and "endRow", don't do anything.
-if (isset($_POST['startRow']) && isset($_POST['endRow']))
+else if (isset($_POST['startRow']) && isset($_POST['endRow']))
 {
     // Declare two variables that will contain the rows of data we want from the database.
     $startRow = $endRow = 0;
@@ -17,7 +27,7 @@ if (isset($_POST['startRow']) && isset($_POST['endRow']))
     // This is technically unnecessary, but call the cleanseInput() function to remove whitespace, slashes, and convert HTML special characters.
     $startRow = cleanseInput($startRow);
     $endRow = cleanseInput($endRow); 
-    
+        
     // Declare and construct the database object.
     $database = new Database();
     
@@ -27,6 +37,9 @@ if (isset($_POST['startRow']) && isset($_POST['endRow']))
     // Construct a User based on the connection to the database.
     $user = new User($databaseConnection);
     
+    // Set the user's email based on the value stored in current session.
+    $user->email = $_SESSION['logged_in_user_email'];
+        
     // Call the getRequestData() function with the specified start and end row indexes.
     $statement = $user->getRequestData($startRow, $endRow);
     
