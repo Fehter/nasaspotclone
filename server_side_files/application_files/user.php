@@ -85,10 +85,10 @@ class User
         }
     }
     
-    function getRequestData($startRow, $endRow)
-    {
-        // Get data from rows $startRow to $endRow from the "getallpresentations" view of the "spot" database.
-        $query = "SELECT * FROM spot.getallpresentations LIMIT ".$startRow.", ".$endRow;
+    function getRequestData($maxNumRowsToGet, $startRowOffset)
+    {        
+        // Get data from the starting row (where starting row = row 0 + the value stored in $startRowOffset) and limit the number of rows returned by the value in $maxNumRowsToGet.
+        $query = "SELECT * FROM spot.getallpresentations LIMIT ".$maxNumRowsToGet." OFFSET ".$startRowOffset;
         
         try
         {           

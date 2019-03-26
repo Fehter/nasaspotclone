@@ -121,7 +121,7 @@ namespace SPOT_App
 
         // This function sends a POST request to the "get_request_data.php" file on the Apache server.
         // It uses the integer arguments "startRow" and "endRow" to tell the "get_request_data.php" file which rows (effectively which requests) should be queried from the database.
-        public async void GetRequestData(int startRow, int endRow)
+        public async void GetRequestData(int maxNumRowsToGet, int startRowOffset)
         {
             Debug.WriteLine("********** RestService.GetRequestData() START **********");
 
@@ -134,8 +134,8 @@ namespace SPOT_App
                 // This content will be used by the PHP file to determine which rows should be queried from the database.
                 FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
                 {
-                    new KeyValuePair<string, string>("startRow", startRow.ToString()),
-                    new KeyValuePair<string, string>("endRow", endRow.ToString())
+                    new KeyValuePair<string, string>("maxNumRowsToGet", maxNumRowsToGet.ToString()),
+                    new KeyValuePair<string, string>("startRowOffset", startRowOffset.ToString())
                 });
 
                 // Send the POST request to the PHP file at the specified URI.
@@ -250,9 +250,11 @@ namespace SPOT_App
             string email = "testuseremail1@test.com";
             string password = "password1";
             
-            // The start and end rows of request data to get from the SQL database.
-            int startRow = 0;
-            int endRow = 100;
+            // Get at most two rows from the database.
+            int maxNumRowsToGet = 2;
+
+            // Skip the first two rows.
+            int startRowOffset = 2;
 
             //----------------------------------------------------------------------------------------------------------//
             // Attempt login.
@@ -307,8 +309,8 @@ namespace SPOT_App
             {
                 FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
                 {
-                    new KeyValuePair<string, string>("startRow", startRow.ToString()),
-                    new KeyValuePair<string, string>("endRow", endRow.ToString())
+                    new KeyValuePair<string, string>("maxNumRowsToGet", maxNumRowsToGet.ToString()),
+                    new KeyValuePair<string, string>("startRowOffset", startRowOffset.ToString())
                 });
 
                 HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
@@ -375,8 +377,8 @@ namespace SPOT_App
             {
                 FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
                 {
-                    new KeyValuePair<string, string>("startRow", startRow.ToString()),
-                    new KeyValuePair<string, string>("endRow", endRow.ToString())
+                    new KeyValuePair<string, string>("maxNumRowsToGet", maxNumRowsToGet.ToString()),
+                    new KeyValuePair<string, string>("startRowOffset", startRowOffset.ToString())
                 });
 
                 HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);

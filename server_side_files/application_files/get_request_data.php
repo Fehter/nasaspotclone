@@ -15,18 +15,18 @@ if (!isset($_SESSION['logged_in_user_email']) || empty($_SESSION['logged_in_user
 }
 
 // If the POST request doesn't have values for the keys "startRow" and "endRow", don't do anything.
-else if (isset($_POST['startRow']) && isset($_POST['endRow']))
+else if (isset($_POST['maxNumRowsToGet']) && isset($_POST['startRowOffset']))
 {
-    // Declare two variables that will contain the rows of data we want from the database.
-    $startRow = $endRow = 0;
+    // Declare two variables that will define which rows we get from the database.
+    $maxNumRowsToGet = $startRowOffset = 0;
 
     // Set those variables to the values contained in the POST array.
-    $startRow = $_POST['startRow'];
-    $endRow = $_POST['endRow'];   
+    $maxNumRowsToGet = $_POST['maxNumRowsToGet'];
+    $startRowOffset = $_POST['startRowOffset'];   
 
     // This is technically unnecessary, but call the cleanseInput() function to remove whitespace, slashes, and convert HTML special characters.
-    $startRow = cleanseInput($startRow);
-    $endRow = cleanseInput($endRow); 
+    //$maxNumRowsToGet = cleanseInput($maxNumRowsToGet);
+    //$startRowOffset = cleanseInput($startRowOffset); 
         
     // Declare and construct the database object.
     $database = new Database();
@@ -41,7 +41,7 @@ else if (isset($_POST['startRow']) && isset($_POST['endRow']))
     $user->email = $_SESSION['logged_in_user_email'];
         
     // Call the getRequestData() function with the specified start and end row indexes.
-    $statement = $user->getRequestData($startRow, $endRow);
+    $statement = $user->getRequestData($maxNumRowsToGet, $startRowOffset);
     
     // Set the fetch mode to an associative array.
     $statement->setFetchMode(PDO::FETCH_ASSOC);
