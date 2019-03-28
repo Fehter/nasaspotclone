@@ -17,21 +17,21 @@ CREATE TABLE IF NOT EXISTS spot.Presentations
 presentationID	INT(11) NOT NULL AUTO_INCREMENT,
 teacher_email VARCHAR(100) NOT NULL,
 ambassador_email VARCHAR(100),
+contact_email VARCHAR(100),
 notes	VARCHAR(1000),
 time_date_created DATETIME NOT NULL,
 organization_name VARCHAR(100),
 grade_level VARCHAR(100),
 number_of_presentations INT(11),
 number_of_students_per_presentation INT(11),
-subject_requested VARCHAR(100),
+subject_requested VARCHAR(1000),
 concerns VARCHAR(1000),
-isMonday_preferred TINYINT(1),
-isTuesday_preferred TINYINT(1),
-isWednesday_preferred TINYINT(1),
-isThursday_preferred TINYINT(1),
-isFriday_preferred TINYINT(1),
-isSaturday_preferred TINYINT(1),
-isSunday_preferred TINYINT(1),
+preferred_days VARCHAR(100),
+contact_times VARCHAR(1000),
+hands_on_activities VARCHAR(1000),
+can_pay_fee VARCHAR(4),
+legal_agreement VARCHAR(4),
+supplies VARCHAR(1000),
 proposed_time_date DATETIME NOT NULL,
 organization_street_address VARCHAR(100),
 organization_zip VARCHAR(100),
@@ -48,10 +48,7 @@ CREATE VIEW spot.GetAllPresentations AS
 	SELECT U.email, U.first_name, U.last_name, U.phone_number, P.notes,
 			P.organization_name, P.grade_level, P.number_of_presentations,
             P.number_of_students_per_presentation, P.subject_requested,
-            P.concerns, P.isMonday_preferred, P.isTuesday_preferred,
-            P.isWednesday_preferred, P.isThursday_preferred,
-            P.isFriday_preferred, P.isSaturday_preferred,
-            P.isSunday_preferred,  P.proposed_time_date,
+            P.concerns,P.preferred_days, P.proposed_time_date,
             P.organization_street_address, P.organization_zip,
             P.organization_city, P.organization_state
 	FROM Users U, Presentations P
@@ -119,58 +116,47 @@ VALUES ('testuseremail20@test.com', 'password20', 'Fname20', 'Lname20', '304-555
 
 INSERT INTO Presentations (presentationID, teacher_email, ambassador_email, notes, time_date_created,
  organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
- subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
- isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
- proposed_time_date, organization_street_address, organization_zip, organization_city, 
- organization_state)
+ subject_requested, concerns, preferred_days, proposed_time_date, organization_street_address,
+ organization_zip, organization_city, organization_state)
 VALUES (1, 'testuseremail1@test.com', NULL, NULL, '2019-01-01 15:00:00',
  'GradeSchool1', 1, 1, 10,
- 'Mars', '2 special needs children may interrupt lesson', 0, 0, 0,
- 0, 0, 0, 0, '2019-02-01 15:00:00', '111 Test Ave.', 26554, 'Fairmont', 'WV');
+ 'Mars', '2 special needs children may interrupt lesson', "Monday", '2019-02-01 15:00:00', '111 Test Ave.', 26554, 'Fairmont', 'WV');
  
  INSERT INTO Presentations (presentationID, teacher_email, ambassador_email, notes, time_date_created,
  organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
- subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
- isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ subject_requested, concerns, preferred_days,  
  proposed_time_date, organization_street_address, organization_zip, organization_city, 
  organization_state)
 VALUES (2, 'testuseremail1@test.com', 'testuseremail2@test.com', 'Please make sure to include information about the moon landing', '2019-01-01 15:00:00',
  'GradeSchool1', 1, 1, 10,
- 'Earths Moon', '2 special needs children may interrupt lesson', 1, 0, 0,
- 0, 0, 0, 0, '2019-02-02 12:00:00', '111 Test Ave.', 26554, 'Fairmont', 'WV');
+ 'Earths Moon', '2 special needs children may interrupt lesson', "Monday", '2019-02-02 12:00:00', '111 Test Ave.', 26554, 'Fairmont', 'WV');
  
  INSERT INTO Presentations (presentationID, teacher_email, ambassador_email, notes, time_date_created,
  organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
- subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
- isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ subject_requested, concerns, preferred_days,  
  proposed_time_date, organization_street_address, organization_zip, organization_city, 
  organization_state)
 VALUES (3, 'testuseremail8@test.com', NULL, NULL, '2019-03-01 15:00:00',
  'College', 13, 7, 20,
- 'Composition of the 8 planets and pluto', NULL, 0, 1, 0,
- 0, 0, 0, 0, '2019-04-01 15:00:00', '789 Testing Rd.', 26554, 'Fairmont', 'West Virginia');
+ 'Composition of the 8 planets and pluto', NULL, "Monday, Tuesday", '2019-04-01 15:00:00', '789 Testing Rd.', 26554, 'Fairmont', 'West Virginia');
  
  INSERT INTO Presentations (presentationID, teacher_email, ambassador_email, notes, time_date_created,
  organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
- subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
- isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ subject_requested, concerns, preferred_days,  
  proposed_time_date, organization_street_address, organization_zip, organization_city, 
  organization_state)
 VALUES (4, 'testuseremail9@test.com', NULL, NULL, '2019-02-22 8:00:00',
  'HighSchool1', 9, 1, 10,
- 'How the solar system formed', NULL, 0, 0, 1,
- 0, 0, 0, 0, '2019-02-23 10:00:00', '12 Flibitty Gibbits St.', 12345, 'Fake City', 'Tennessee');
+ 'How the solar system formed', NULL, "Tuesday, Wednesday", '2019-02-23 10:00:00', '12 Flibitty Gibbits St.', 12345, 'Fake City', 'Tennessee');
  
  INSERT INTO Presentations (presentationID, teacher_email, ambassador_email, notes, time_date_created,
  organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
- subject_requested, concerns, isMonday_preferred, isTuesday_preferred, isWednesday_preferred, 
- isThursday_preferred, isFriday_preferred, isSaturday_preferred, isSunday_preferred,  
+ subject_requested, concerns, preferred_days,  
  proposed_time_date, organization_street_address, organization_zip, organization_city, 
  organization_state)
 VALUES (5, 'testuseremail1@test.com', 'testuseremail4@test.com', NULL, '2018-01-01 15:00:00',
  'HighSchool4', 12, 2, 250,
- 'The Model of the Universe and how it came to be.', 'There will be conspiracy theorists in the audience', 0, 0, 0,
- 1, 0, 0, 0, '2019-12-31 15:00:00', '999 Test Difficulty Rd.', 98765, 'Masterville', 'California');
+ 'The Model of the Universe and how it came to be.', 'There will be conspiracy theorists in the audience', "Wednesday, Thursday", '2019-12-31 15:00:00', '999 Test Difficulty Rd.', 98765, 'Masterville', 'California');
  
  
  

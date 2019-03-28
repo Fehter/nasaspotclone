@@ -1,0 +1,3 @@
+ALTER TABLE `spot`.`presentations`
+
+ADD COLUMN `handsOnActivities` VARCHAR(1000) NULL AFTER `contactTimes`;
