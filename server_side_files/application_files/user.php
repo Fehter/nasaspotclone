@@ -138,5 +138,28 @@ class User
     {
         $this->password = $password;
     }    
+	
+	function getUserData()
+    {        
+        $query = "SELECT email,first_name,last_name,phone_number,IsAmbassador,isPresenter,isAdministrator FROM spot.users;".$this->user_table_name." WHERE email='".$this->email."'";
+        // The above query is equivalent to this following example query assuming email == "testuseremail1@test.com" and password == "password1":
+        // SELECT email, password FROM spot.users WHERE email='testuseremail1@test.com' AND password='password1'
+        
+        try
+        {           
+            // Prepare and execute the query.
+            // The query results are stored in the $statement variable.
+            $statement = $this->connection->prepare($query);        
+            
+            $statement->execute();
+        }
+        
+        catch(PDOException $e)
+        {
+            //echo "PHP web service: user.php: login(): PDOException: " . $e->getMessage().PHP_EOL;
+        }  
+        
+        return $statement;
+    }  
 }
 ?>
