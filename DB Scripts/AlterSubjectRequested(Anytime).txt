@@ -1,0 +1,3 @@
+ALTER TABLE `spot`.`presentations` 
+
+CHANGE COLUMN `subject_requested` `subject_requested` VARCHAR(1000) NULL DEFAULT NULL ;

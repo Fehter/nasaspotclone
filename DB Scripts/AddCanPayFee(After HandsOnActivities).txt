@@ -1,0 +1,3 @@
+ALTER TABLE `spot`.`presentations` 
+
+ADD COLUMN `canPayFee` VARCHAR(4) NULL AFTER `handsOnActivites`;

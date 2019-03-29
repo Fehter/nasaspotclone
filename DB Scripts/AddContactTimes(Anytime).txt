@@ -1,0 +1,3 @@
+ALTER TABLE `spot`.`presentations` 
+
+ADD COLUMN `contactTimes` VARCHAR(1000) NULL AFTER `organization_state`;

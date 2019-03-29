@@ -1,0 +1,3 @@
+ALTER TABLE `spot`.`presentations` 
+
+ADD COLUMN `legalAgreement` VARCHAR(4) NULL AFTER `canPayFee`;

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <!-- <link rel="stylesheet" type="text/css" href="style_02.css"> -->
+        <!-- <dbConnection rel="stylesheet" type="text/css" href="style_02.css"> -->
         <!-- <script type="text/javascript" src="jquery-3.3.1.min.js"></script> -->
     
         <title>Handle Request Page</title>
@@ -14,17 +14,19 @@
 
         //echo $_POST["name"];        
        
-        if ($_SERVER["REQUEST_METHOD"] == "POST")
-            echo "POST REQUEST METHOD<br><br>";        
+        //if ($_SERVER["REQUEST_METHOD"] == "POST")
+            //echo "POST REQUEST METHOD<br><br>";        
         
-        echo "<br>-------------------------------------------------------------------------------------------------------------<br>";
-        echo "POST contents from create request form as follows:";
-        echo "<br>-------------------------------------------------------------------------------------------------------------<br>";
+        //echo "<br>-------------------------------------------------------------------------------------------------------------<br>";
+        //echo "POST contents from create request form as follows:";
+        //echo "<br>-------------------------------------------------------------------------------------------------------------<br>";
         
-        $name = $orgName = $email = $primaryPhoneNumber = $altPhoneNumber = $contactTimes = "";
-        $schoolAddress = $requestedPresentation = $requestedHandsOnActivity = $gradeLevels = "";
-        $numStudents = $date = $time = $days = $supplies = $canPayFee = $ambassadorStatus = $concerns = $method = "";
-        
+        $firstName = $lastName = $orgName = $email = $primaryPhoneNumber = $contactTimes = "";
+        $streetAddress = $city = $state = $zip = $requestedPresentation = $requestedHandsOnActivity = $gradeLevels = "";
+        $numStudents = $date = $time = $mySQLDateTimeFormat = $days = $supplies = $canPayFee = $ambassadorStatus = $concerns = $method = "";
+        $concatRequestedPresentations = $concatRequestedHandsOnActivity = $concatDays = $concatSupplies = $concatMethod = "";
+		$numberOfPresentations = $preparedStatement = $time_date_created = "";
+		
         // Loop through POST contents and echo everything.
         foreach ($_POST as $key => $value)
         {
@@ -34,8 +36,10 @@
             {
                 foreach ($value as $arrayItem)
                 {
+					
                     echo $arrayItem."<br>";
-                }
+                
+				}
             }
             
             else
@@ -50,14 +54,18 @@
 
         if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
-            $name = test_input($_POST["name"]);
+            $firstName = test_input($_POST["firstName"]);
+			$lastName = test_input($_POST["lastName"]);
             $orgName = test_input($_POST["orgName"]);
             $email = test_input($_POST["email"]);
             $primaryPhoneNumber = test_input($_POST["primaryPhoneNumber"]);
-            $altPhoneNumber = test_input($_POST["altPhoneNumber"]);
             $contactTimes = test_input($_POST["contactTimes"]);
-            $schoolAddress = test_input($_POST["schoolAddress"]);
+            $streetAddress = test_input($_POST["streetAddress"]);
+			$city = test_input($_POST["city"]);
+			$state = test_input($_POST["state"]);
+			$zip = test_input($_POST["zip"]);
             $requestedPresentation = test_input($_POST["requestedPresentation"]);
+			$numberOfPresentations = test_input($_POST["numberOfPresentations"]);
             $requestedHandsOnActivity = test_input($_POST["requestedHandsOnActivity"]);
             $gradeLevels = test_input($_POST["gradeLevels"]);
             $numStudents = test_input($_POST["numStudents"]);
@@ -71,50 +79,135 @@
             $method = test_input($_POST["method"]);
         }
         
-        echo "<br>";
-        echo $name."<br>";
-        echo $orgName."<br>";
-        echo $email."<br>";
-        echo $primaryPhoneNumber."<br>";
-        echo $altPhoneNumber."<br>";
-        echo $contactTimes."<br>";
-        echo $schoolAddress."<br>";
+        //echo "<br>";
+        //echo $firstName."<br>";
+		//echo $lastName."<br>";
+        //echo $orgName."<br>";
+        //echo $email."<br>";
+        //echo $primaryPhoneNumber."<br>";
+        //echo $contactTimes."<br>";
+        //echo $streetAddress."<br>";
+		//echo $city."<br>";
+		//echo $state."<br>";
+		//echo $zip."<br>";
+		
+		function concatenateStringSubitems($array, &$concatResult)
+		{
+			$arrayCount = count($array);
+			for($i = 0; $i < $arrayCount; $i++)
+			{
+				
+				$concatResult.=$array[$i];
+				
+				if($i == ($arrayCount - 1))
+				{
+					$concatResult.="\n";
+				}
+			}
+		}
+		
+		function concatenateCommaSeperatedSubitems($array, &$concatResult)
+		{
+			$arrayCount = count($array);
+			for($i = 0; $i < $arrayCount; $i++)
+			{
+				
+				$concatResult.=$array[$i];
+				
+				if($i < ($arrayCount - 1))
+				{
+					$concatResult.=", ";
+				}
+			}
+		}
         
-        foreach ($requestedPresentation as $subItem)
-        {
-            echo $subItem."<br>";
-        }
+		if(!(empty($requestedPresentation)))//if not empty. empty() returns true if the variable is empty.
+		{
+			concatenateStringSubitems($requestedPresentation, $concatRequestedPresentations);
+		}
+		
+		else
+		{
+			$concatRequestedPresentations = "Any Presentation.";
+		}
+		
+		//echo "**************************<br>".$concatRequestedPresentations."<br>";
         
-        foreach ($requestedHandsOnActivity as $subItem)
-        {
-            echo $subItem."<br>";
+		if(!(empty($requestedHandsOnActivity)))//if not empty. empty() returns true if the variable is empty.
+		{
+			concatenateStringSubitems($requestedHandsOnActivity, $concatRequestedHandsOnActivity);
+		}
+		
+		else
+		{
+			$concatRequestedHandsOnActivity = "No hands-on component requested.";
+		}
+		
+		//echo $concatRequestedHandsOnActivity."<br>";
+		
+       // echo $gradeLevels."<br>";
+        //echo $numStudents."<br>";
+       // echo $date."<br>";
+       // echo $time."<br>";
+		
+		$mySQLDateTimeFormat .= $date;
+		$mySQLDateTimeFormat .= " ";
+		$mySQLDateTimeFormat .= $time;
+		$mySQLDateTimeFormat .= ":00";
+		
+		//echo $mySQLDateTimeFormat."<br>";
+        
+		if(!(empty($days)))//if not empty. empty() returns true if the variable is empty.
+		{
+			concatenateCommaSeperatedSubitems($days, $concatDays);
         }
+		
+		//if days is empty, every day is a preferred day.
+		else
+		{
+			$concatDays = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday";	
+		}
+		
+		//echo $concatDays."<br>";
+		
+		if(!(empty($supplies)) && (!(trim(end($supplies)) == "")))//if not empty. empty() returns true if the variable is empty.
+		{
+			
+			
+				concatenateStringSubitems($supplies, $concatSupplies);
+			
+		}
+		
+		else
+		{
+			$concatSupplies = "No supplies will be provided.";
+		}
+		
+		//echo $concatSupplies."<br>";
 
-        echo $gradeLevels."<br>";
-        echo $numStudents."<br>";
-        echo $date."<br>";
-        echo $time."<br>";
+        //echo "can pay fee: ".$canPayFee."<br>";
+        //echo $ambassadorStatus."<br>";
         
-        foreach ($days as $subItem)
-        {
-            echo $subItem."<br>";
-        }
+		if(trim($concerns) == "")
+		{
+			$concerns = "No Concerns Reported.";
+		}
+		
+		//echo $concerns."<br>";
         
-        foreach ($supplies as $subItem)
-        {
-            echo $subItem."<br>";
-        }
+		if(!(empty($method)) && (!(trim(end($method)) == "")))//if not empty. empty() returns true if the variable is empty.
+		{
+			concatenateStringSubitems($method, $concatMethod);
+		}
+		
+		else
+		{
+			$concatMethod = "No alternative presentation methods requested.";
+		}
+		
+		//echo $concatMethod."<br>";
 
-        echo $canPayFee."<br>";
-        echo $ambassadorStatus."<br>";
-        echo $concerns."<br>";
-        
-        foreach ($method as $subItem)
-        {
-            echo $subItem."<br>";
-        }
-
-        echo "<br>-------------------------------------------------------------------------------------------------------------<br><br>";
+        //echo "<br>-------------------------------------------------------------------------------------------------------------<br><br>";
 
         // Recursive function that trims whitespace, strips slashes, and converts html special characters.
         // This is used to validate user input for security.
@@ -143,59 +236,44 @@
         $server = "localhost";
         $user = "test1";
         $pass = "test1";
-        $dbName = "mysql_database_01";
-        $link = mysqli_connect($server, $user, $pass) or die ("Can't connect to SQL server");
+        $dbName = "spot";
+        $dbConnection = new mysqli($server, $user, $pass, $dbName);
 
         // Check connection to database
-        if (mysqli_connect_errno()) {
-            printf("Connect failed: %s\n", mysqli_connect_error());
+        if ($dbConnection->connect_error) {
+            die("Connection Failed: ".$dbConnection->connect_error);
             exit();
         }
 
         else
             echo "Successfully created connection to SQL database<br><br>";
 
-        if (mysqli_select_db($link, $dbName))
-            echo "Successfully set default database to: ".$dbName."<br><br>";
-
-        //$query_result = mysqli_query($link, "SELECT * FROM test_user_table");
-
-        /*
+       // if (mysqli_select_db($dbConnection, $dbName))
+           // echo "Successfully set default database to: ".$dbName."<br><br>";
+	   
+	   $time_date_created = date("Y-m-d H:i:s");
+	   
         // The following queries insert serveral values into various columns on the "test_user_table" in the SQL database -- this is for debugging purposes.
-        mysqli_query($link, "INSERT INTO test_user_table (username, password, extra_info) VALUES ('testusername_01', 'testpassword_01', 'testextra_info_01')");
-        mysqli_query($link, "INSERT INTO test_user_table (username, password, extra_info) VALUES ('testusername_02', 'testpassword_02', 'testextra_info_02')");
-        mysqli_query($link, "INSERT INTO test_user_table (username, password, extra_info) VALUES ('testusername_03', 'testpassword_03', 'testextra_info_03')");
-        mysqli_query($link, "INSERT INTO test_user_table (username, password, extra_info) VALUES ('testusername_04', 'testpassword_04', 'testextra_info_04')");
-        mysqli_query($link, "INSERT INTO test_user_table (username, password, extra_info) VALUES ('testusername_05', 'testpassword_05', 'testextra_info_05')");
-        mysqli_query($link, "INSERT INTO test_user_table (username, password, extra_info) VALUES ('testusername_06', 'testpassword_06', 'testextra_info_06')");
-        */
-
-        echo "Some content from a query on ".$dbName.".test_user_table:<br>";
-        $query_result = mysqli_query($link, "SELECT * FROM test_user_table");
-
-        while($query_result_row = mysqli_fetch_array($query_result))
-        {
-            echo "- ";
-            print_r($query_result_row);
-            echo("<br>");
-            //var_dump($query_result_row);
-            //echo "<br>----<br>";
-            
-            /*
-            foreach ($query_result_row as &$value)
-            {
-                var_dump($value);
-                echo("<br>");
-            }
-            echo "<br>----<br>";
-            */
-        }
-
-        echo "<br>";
-
-        //var_dump($query_result);
-
-        mysqli_close($link)
+        $preparedStatement = $dbConnection->prepare("INSERT INTO Presentations (teacher_email, organization_name, grade_level, number_of_presentations,".
+							" number_of_students_per_presentation, subject_requested, concerns, proposed_time_date, time_date_created,".
+							" organization_street_address, organization_zip, organization_city, organization_state,".
+							" contact_times, hands_on_activities, can_pay_fee, legal_agreement, supplies, preferred_days)".
+							"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				
+		$preparedStatement->bind_param("sssiissssssssssssss", $email, $orgName, $gradeLevels, $numberOfPresentations, $numStudents,
+										$concatRequestedPresentations, $concerns, $mySQLDateTimeFormat, $time_date_created,
+										$streetAddress, $zip, $city, $state, $contactTimes, $concatRequestedHandsOnActivity,
+										$canPayFee, $ambassadorStatus, $concatSupplies, $concatDays);
+     
+		$preparedStatement->execute();
+		
+		echo $dbConnection->error;
+		
+		//mysqli_query($dbConnection, "INSERT INTO test_user_table (username, password, extra_info) VALUES ('testusername_02', 'testpassword_02', 'testextra_info_02')");
+		
+		
+		$preparedStatement->close();
+        mysqli_close($dbConnection)
         ?>
     </body>
 </html>
