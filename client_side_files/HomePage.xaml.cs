@@ -9,15 +9,19 @@ namespace SPOT_App
 {
     public partial class HomePage : ContentPage
     {
-        public HomePage()
+        public RestService restService;
+        public User user;
+        public HomePage(RestService restService, User user)
         {
+            this.restService = restService;
+            this.user = user;
             InitializeComponent();         
         }
 
         // The following "_Button_Clicked" methods catch events from the buttons created in the "HomePage.xaml" file.
         private async void RequestsPage_Button_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RequestsPage());
+            await Navigation.PushAsync(new RequestsPage(restService));
         }
 
         // This function causes the application to go back to the root page by popping all non-root pages off the stack of pages.

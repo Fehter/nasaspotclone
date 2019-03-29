@@ -3,9 +3,9 @@
     // This class defines a LoginResponse object.
     // The purpose of this class is to be able to easily (via the JsonConvert.DeserializeObject() function) create an object that holds information as to whether a login was successful.
     // See the test_login() function in the RestService file for an example where this class is used.
-    class LoginResponse
+    public class LoginResponse
     {
-        public bool Status { get; set; }
+        public string Status { get; set; }
         public string Message { get; set; }
         public string Email { get; set; }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SPOT_App.ViewModels; // We need this using statement because the RequestViewModel is defined in the test_xamarin_app.ViewModels namespace
+using System.Collections.Generic;
 
 namespace SPOT_App
 {
@@ -19,46 +20,45 @@ namespace SPOT_App
     {
         public ObservableCollection<RequestViewModel> requestCollection { get; set; }
         //public ListView requests;
-
-        public RequestsPage()
+        public RestService restService;
+        public RequestsPage(RestService restService)
         {
             InitializeComponent();
-            
-            requestCollection = new ObservableCollection<RequestViewModel> { }; // This variable will contain the RequestViewModel objects that store request data.
+            this.restService = restService;
+            //this.restService = restService;
+            constructRequestView();
 
-            // A simple for loop to construct 20 RequestViewModels with unique contents (see the + x on the end of each line).
-            for (int x = 0; x < 20; x++)
-            {
-                requestCollection.Add(new RequestViewModel
-                {
-                    FirstName = "test FirstName " + x,
-                    LastName = "test LastName " + x,
-                    OrganizationName = "test OrganizationName " + x,
-                    Email = "test Email " + x,
-                    PrimaryPhoneNumber = "test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber test PrimaryPhoneNumber " + x,
-                    AlternativePhoneNumber = "test AlternativePhoneNumber " + x,
-                    ContactTimes = "test ContactTimes " + x,
-                    PresentationLocation = "test PresentationLocation " + x,
-                    PresentationRequested = "test PresentationRequested " + x,
-                    PresentationRotations = "test PresentationRotations " + x,
-                    HandsOnActivity = "test HandsOnActivity " + x,
-                    GradeLevels = "test GradeLevels " + x,
-                    NumberOfStudents = "test NumberOfStudents " + x,
-                    ProposedDateAndTime = "test ProposedDateAndTime " + x,
-                    Supplies = "test Supplies " + x,
-                    TravelFee = "test TravelFee " + x,
-                    AmbassadorStatus = "test AmbassadorStatus " + x,
-                    OtherConcerns = "test OtherConcerns " + x,
-                    PresentationAlternativeMethod = "test PresentationAlternativeMethod " + x
-                });
-            }
+
 
             requests.ItemTemplate = new DataTemplate(typeof(RequestCell)); // The "RequestCell" defines how the RequestViewModel objects will be displayed by the GUI (the View).
             requests.HasUnevenRows = true;
             requests.SeparatorColor = Color.Black;
-            requests.ItemsSource = requestCollection; // "requests" is the ListView defined in the RequestPage.xaml file -- the ItemsSource property tells this ListView where it should get information for its list items from.           
-        }
+            requests.ItemsSource = requestCollection; // "requests" is the ListView defined in the RequestPage.xaml file -- the ItemsSource property tells this ListView where it should get information for its list items from.
 
+        }
+        private async void constructRequestView()
+        {
+            requestCollection = new ObservableCollection<RequestViewModel> { }; // This variable will contain the RequestViewModel objects that store request data.
+
+
+            List<RequestViewModel> rvmList = await restService.GetRequestData(0, 100);
+
+
+            foreach (RequestViewModel rvm in rvmList)
+            {
+                requestCollection.Add(new RequestViewModel
+                {
+                    FirstName = rvm.FirstName,
+                    LastName = rvm.LastName,
+                    Name = rvm.Name,
+                    OrganizationName = rvm.OrganizationName,
+                    Email = rvm.Email,
+                    PrimaryPhoneNumber = rvm.PrimaryPhoneNumber,
+                    AlternativePhoneNumber = rvm.AlternativePhoneNumber,
+                    ContactTimes = rvm.ContactTimes,
+                });
+            }
+        }
         async void Handle_RequestTapped(object sender, ItemTappedEventArgs e)
         {
            //sender.GetType();
@@ -161,5 +161,6 @@ namespace SPOT_App
                 View = mainLayout; // This sets the View of the parent object (which I think is the ViewCell I am extending -- not quite sure yet).
             }
         }
+
     }
 }
