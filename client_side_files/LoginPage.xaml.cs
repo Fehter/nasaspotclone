@@ -46,8 +46,6 @@ namespace SPOT_App
                 }
 
             }
-
-
         }        
     }
 }
