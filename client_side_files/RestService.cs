@@ -148,16 +148,16 @@ namespace SPOT_App
                 // This line, for our purposes, seemingly has the same effect as the above two commented-out lines.
                 // Read the HttpResponseMessage's Content property as a string.                
                 string responseContent = await response.Content.ReadAsStringAsync();
-
-                // Because the PHP file sends back a JSON encoded associative array, we can use the "Newtonsoft.Json" package to deserialize the JSON string and, thereby, create a list of RequestViewModel objects (which I've called rvmList).
-                List<RequestViewModel> rvmList = JsonConvert.DeserializeObject<List<RequestViewModel>>(responseContent);
-
+                
                 Debug.WriteLine("RestService.GetRequestData(): RESPONSE CONTENT AS FOLLOWS:");
 
                 // This will print the JSON string itself -- this is what is "deserialized" by the JsonConvert.DeserializeObject() function.
                 Debug.WriteLine(responseContent);
 
                 Debug.WriteLine("RestService.GetRequestData(): RESPONSE CONTENT END");
+
+                // Because the PHP file sends back a JSON encoded associative array, we can use the "Newtonsoft.Json" package to deserialize the JSON string and, thereby, create a list of RequestViewModel objects (which I've called rvmList).
+                List<RequestViewModel> rvmList = JsonConvert.DeserializeObject<List<RequestViewModel>>(responseContent);
 
                 // To make sure that the JsonConvert.DeserializeObject() function was successful, loop through the list and call the GetContents() function on each object.
                 // If the JsonConvert.DeserializeObject() was successful, then the values of some of properties of the RequestViewModel objects should match what is stored in the SQL database.

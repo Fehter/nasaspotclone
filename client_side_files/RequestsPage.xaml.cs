@@ -41,7 +41,7 @@ namespace SPOT_App
             requestCollection = new ObservableCollection<RequestViewModel> { }; // This variable will contain the RequestViewModel objects that store request data.
 
 
-            List<RequestViewModel> rvmList = await restService.GetRequestData(0, 100);
+            List<RequestViewModel> rvmList = await restService.GetRequestData(100, 0);
 
 
             foreach (RequestViewModel rvm in rvmList)

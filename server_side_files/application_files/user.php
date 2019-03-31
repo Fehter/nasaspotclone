@@ -103,7 +103,7 @@ class User
         
         catch(PDOException $e)
         {
-            //echo "PHP web service: user.php: getRequestData(): Failed to get data" . $e->getMessage().PHP_EOL;
+            echo "PHP web service: user.php: getRequestData(): Failed to get data" . $e->getMessage().PHP_EOL;
         }       
         
         return $statement;    

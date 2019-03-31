@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Threading;
 using SPOT_App.ViewModels; // This is necessary because the RequestViewModel class is defined in the "SPOT_App.ViewModels" namespace.
                            // Without this line, attempting to declare/initialize a RequestViewModel object would fail.
 
@@ -58,13 +59,18 @@ namespace SPOT_App
             //restService.test_setData(requestViewModel);
 
             // Call the RestService's GetRequestData() with integer arguments 0 and 100 -- this means that the PHP file on the web server will query information for the first 100 requests in the database.
-            // restService.GetRequestData(0, 100);
+            //restService.GetRequestData(0, 100);
 
             // Call the RestService's test_login() function with the specified email and password arguments.
             // Note that "testuseremail1@test.com" and "password1" is an actual email/password combination in the SQL database (assuming that you used Kyle's latest script to create the "spot" database).
             //restService.test_login("testuseremail1@test.com", "password1");
 
-            restService.test_Login_GetRequestData_Logout_GetRequestData_WithSession();
+
+            //restService.test_login("testuseremail1@test.com", "password1");
+            //Thread.Sleep(5000);
+            //restService.GetRequestData(100, 0);
+
+            //restService.test_Login_GetRequestData_Logout_GetRequestData_WithSession();
 
 
 
@@ -75,7 +81,7 @@ namespace SPOT_App
             //restService.test_login("testuseremail1@test.com", "password11");
             //restService.GetUserData("testuseremail1@test.com");
             // I've commented out the following line because, for testing connectivity, we do not need to construct any GUI related objects.
-            //MainPage = new NavigationPage(new TitlePage(restService)); // This causes the LoginPage to be the first thing the user sees.
+            MainPage = new NavigationPage(new TitlePage(restService)); // This causes the LoginPage to be the first thing the user sees.
         }
 
         protected override void OnStart()

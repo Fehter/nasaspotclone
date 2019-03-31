@@ -33,7 +33,7 @@ class Database
         // NOTE: the error message should be visible in the Debug console of Visual Studio.
         catch(PDOException $e)
         {
-            //echo "PHP web service: database.php: getConnection(): Connection failed: " . $e->getMessage().PHP_EOL;
+            echo "PHP web service: database.php: getConnection(): Connection failed: " . $e->getMessage().PHP_EOL;
         }
         
         return $this->connection;
