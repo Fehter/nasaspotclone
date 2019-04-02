@@ -32,7 +32,7 @@ namespace SPOT_App
                 await DisplayAlert("Login", "Username and password field can not be empty", "Ok");
             else
             {
-                loginResponse = await restService.test_login(Username.Text, Password.Text);
+                loginResponse = await restService.login(Username.Text, Password.Text);
                 if (loginResponse.Status.Contains("true"))
                 {
                     user = await restService.GetUserData(loginResponse.Email);

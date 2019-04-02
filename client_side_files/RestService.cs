@@ -8,6 +8,7 @@ using System.Text;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography; // This library gives us access to several different hashing algorithms. Hopefully one of those algorithms will match whatever is available in PHP (for the create request web page).
 using Newtonsoft.Json;
 using SPOT_App.Models; // This is necessary because the LoginResponse class is defined in the SPOT_App.Models namespace.
 using SPOT_App.ViewModels; // This is necessary because the RequestViewModel class is defined in the "SPOT_App.ViewModels" namespace.
@@ -191,7 +192,7 @@ namespace SPOT_App
         //
         // These associative arrays are then converted into a LoginResponse object via a call to JsonConvert.DeserializeObject().
         // A LoginResponse object has get/set Status, Message, and Email functions -- these allow you to easily see if the attempted login was successful.
-        public async Task<LoginResponse> test_login(string email, string password)
+        public async Task<LoginResponse> login(string email, string password)
         {
             Debug.WriteLine("********** RestService.test_login() START **********");
 
@@ -235,10 +236,90 @@ namespace SPOT_App
                 Debug.Fail("RestService.test_login(): something went wrong!");
                 return null;
             }
-
-
             //Debug.WriteLine("********** RestService.test_login() END **********");
         }
+
+        // This function takes an argument string of a password and returns the hashed result as a lowercase hexadecimal string.
+        // For more information, see: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5?view=netstandard-2.0
+        public string getPasswordHash(string password)
+        {
+            // Choose which hashing algorithm to use and store it in a variable.
+            var hashingAlgorithm = MD5.Create();            
+            
+            // Compute the hash of the password and store the resulting byte array in a variable.
+            byte[] hashedPasswordBytes = hashingAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            // Construct the StringBuilder instance that we will use to convert the byte array form of the hashed password into a hex string.
+            StringBuilder stringBuilder = new StringBuilder();
+
+            // Individually convert each byte in the password byte array into a lowercase hex string an append the result to the StringBuilder instance.
+            foreach (byte hashByte in hashedPasswordBytes)
+            {
+                // "hashByte.ToString("x2")" converts the byte into a lowercase hexadecimal number (indicated by the format string "x2").
+                // That converted byte is then appended onto the StringBuilder instance.
+                // For more information on "x2" see: https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings
+                stringBuilder.Append(hashByte.ToString("x2")); 
+            }
+
+            // Now that the StringBuilder contains the complete hex string of the hashed password, call ToString() again and return the resulting string hash of the password.
+            return stringBuilder.ToString();
+        }
+
+        // This function tests the compatibility of the hash algorithm used in the getPasswordHash() function of this RestService class and the other hash algorithm used in the "test_password_hashing.php" file.
+        // It takes a password and computes the corresponding hash of that password by calling the getPasswordHash() function of the RestService.
+        // It then sends (in a POST request) a FormUrlEncodedObject with key/value pairs of the email, the password, and the hashed password to the "test_password_hashing.php" file.
+        // As a response, the "test_password_hashing.php" file echos:
+        // 1: the unaltered email and unaltered password.
+        // 2: the unaltered email and the password hashed by the getPasswordHash() function of the RestService.
+        // 3: the unaltered email and the password hashed by an algorithm in the "test_password_hashing.php" file.
+        // 4: the result of comparing the Xamarin hashed password with the PHP hashed password.
+        public async void testPasswordHashing()
+        {
+            Debug.WriteLine("********** RestService.testPasswordHashing() START **********");
+
+            // Set the email/password combination that will be hashed and tested.
+            string email = "testEmail";
+            string password = "testPassword";
+
+            // Hash the password with an algorithm defined in the hashPassword() function.
+            // Subsequently store the string hash of the password in the hashedPassword variable.
+            string hashedPassword = getPasswordHash(password);
+
+            var uri = new Uri("http://10.0.2.2:80/test/application_files/test_password_hashing.php");
+
+            try
+            {
+                // Construct the FormUrlEncodedContent object with the email, password, and hashed password as key/value pairs.
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("email", email),
+                    new KeyValuePair<string, string>("password", password),                    
+                    new KeyValuePair<string, string>("hashedPassword", hashedPassword)
+                });
+
+                // Send the FormUrlEncodedContent object to the PHP file in a POST request and await a response.
+                HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+                   
+                // Read the response's content as a string.
+                string responseContent = await response.Content.ReadAsStringAsync();                
+
+                Debug.WriteLine("RestService.testPasswordHashing(): RESPONSE CONTENT AS FOLLOWS:");
+
+                // Print the response from the PHP file.
+                Debug.WriteLine(responseContent);
+
+                Debug.WriteLine("RestService.testPasswordHashing(): RESPONSE CONTENT END");              
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.testPasswordHashing(): something went wrong!");
+            }
+            
+            Debug.WriteLine("********** RestService.testPasswordHashing() END **********");
+        }
+
         // This function sends a POST request to the "get_user_data.php" file on the Apache server.
         // It uses the email of the loginResponse to load the rest of the user data
         public async Task<User> GetUserData(string email)
