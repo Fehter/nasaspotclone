@@ -1,0 +1,50 @@
+ALTER TABLE `spot`.`presentations` 
+
+ADD COLUMN `contactEmail` VARCHAR(100) NULL AFTER `ambassador_email`;
+
+
+ALTER TABLE `spot`.`presentations` 
+
+ADD COLUMN `contactTimes` VARCHAR(1000) NULL AFTER `organization_state`;
+
+ALTER TABLE `spot`.`presentations` 
+
+CHANGE COLUMN `subject_requested` `subject_requested` VARCHAR(1000) NULL DEFAULT NULL ;
+
+
+ALTER TABLE `spot`.`presentations`
+
+ADD COLUMN `handsOnActivities` VARCHAR(1000) NULL AFTER `contactTimes`;
+
+
+ALTER TABLE `spot`.`presentations` 
+
+ADD COLUMN `canPayFee` VARCHAR(4) NULL AFTER `handsOnActivites`;
+
+ALTER TABLE `spot`.`presentations` 
+
+ADD COLUMN `legalAgreement` VARCHAR(4) NULL AFTER `canPayFee`;
+
+
+ALTER TABLE `spot`.`presentations` 
+
+ADD COLUMN `supplies` VARCHAR(1000) NULL AFTER `legalAgreement`;
+
+
+ALTER TABLE `spot`.`presentations` 
+
+	DROP COLUMN `isSunday_preferred`,
+
+	DROP COLUMN `isSaturday_preferred`,
+
+	DROP COLUMN `isFriday_preferred`,
+
+	DROP COLUMN `isThursday_preferred`,
+
+	DROP COLUMN `isWednesday_preferred`,
+
+	DROP COLUMN `isTuesday_preferred`,
+
+	DROP COLUMN `isMonday_preferred`,
+
+	ADD COLUMN `preferredDays` VARCHAR(100) NULL AFTER `supplies`;

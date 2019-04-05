@@ -141,7 +141,7 @@ class User
 	
 	function getUserData()
     {        
-        $query = "SELECT email,first_name,last_name,phone_number,IsAmbassador,isPresenter,isAdministrator FROM spot.users;".$this->user_table_name." WHERE email='".$this->email."'";
+        $query = "SELECT email,first_name,last_name,phone_number,IsAmbassador,isPresenter,isAdministrator FROM spot.users WHERE email='".$this->email."'";
         // The above query is equivalent to this following example query assuming email == "testuseremail1@test.com" and password == "password1":
         // SELECT email, password FROM spot.users WHERE email='testuseremail1@test.com' AND password='password1'
         
