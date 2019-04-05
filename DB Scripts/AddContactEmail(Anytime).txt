@@ -1,3 +1,0 @@
-ALTER TABLE `spot`.`presentations` 
-
-ADD COLUMN `contactEmail` VARCHAR(100) NULL AFTER `ambassador_email`;
