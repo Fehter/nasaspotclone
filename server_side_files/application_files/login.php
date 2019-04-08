@@ -1,4 +1,4 @@
-<?php
+ <?php
 // Include the PHP files that define objects or functions we need in this file.
 include_once '../application_files/database.php';
 include_once '../application_files/user.php';  

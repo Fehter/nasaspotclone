@@ -1,73 +1,19 @@
 <html>
     <head>
-        <!-- <dbConnection rel="stylesheet" type="text/css" href="style_02.css"> -->
-        <!-- <script type="text/javascript" src="jquery-3.3.1.min.js"></script> -->
-    
+		<link rel="stylesheet" type="text/css" href="style.css">
         <title>Handle Request Page</title>
 
-        <h1><center><font color=#000000><i>Handle Request Page</i></font></center></h1>
+        <h1><center><font color=#000000><i>Thank you for requesting a presentation!</i></font></center></h1>
     </head>
     <body> 
         <?php
         
-        $firstName = $lastName = $orgName = $email = $primaryPhoneNumber = $contactTimes = "";
+        $email = $orgName = $primaryPhoneNumber = $contactTimes = "";
         $streetAddress = $city = $state = $zip = $requestedPresentation = $requestedHandsOnActivity = $gradeLevels = "";
         $numStudents = $date = $time = $mySQLDateTimeFormat = $days = $supplies = $canPayFee = $ambassadorStatus = $concerns = $method = "";
         $concatRequestedPresentations = $concatRequestedHandsOnActivity = $concatDays = $concatSupplies = $concatMethod = "";
 		$numberOfPresentations = $preparedStatement = $time_date_created = "";
-		
-        // Loop through POST contents and echo everything.
-        foreach ($_POST as $key => $value)
-        {
-            echo $key.":<br>";
-
-            if (is_array($value))
-            {
-                foreach ($value as $arrayItem)
-                {
-					
-                    echo $arrayItem."<br>";
-                
-				}
-            }
-            
-            else
-            {
-                echo $value."<br>";
-            }
-            
-            echo "----<br>";
-        }
-        
-        echo "<br>-------------------------------------------------------------------------------------------------------------<br>";
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST")
-        {
-            $firstName = test_input($_POST["firstName"]);
-			$lastName = test_input($_POST["lastName"]);
-            $orgName = test_input($_POST["orgName"]);
-            $email = test_input($_POST["email"]);
-            $primaryPhoneNumber = test_input($_POST["primaryPhoneNumber"]);
-            $contactTimes = test_input($_POST["contactTimes"]);
-            $streetAddress = test_input($_POST["streetAddress"]);
-			$city = test_input($_POST["city"]);
-			$state = test_input($_POST["state"]);
-			$zip = test_input($_POST["zip"]);
-            $requestedPresentation = test_input($_POST["requestedPresentation"]);
-			$numberOfPresentations = test_input($_POST["numberOfPresentations"]);
-            $requestedHandsOnActivity = test_input($_POST["requestedHandsOnActivity"]);
-            $gradeLevels = test_input($_POST["gradeLevels"]);
-            $numStudents = test_input($_POST["numStudents"]);
-            $date = test_input($_POST["date"]);
-            $time = test_input($_POST["time"]);
-            $days = test_input($_POST["days"]);
-            $supplies = test_input($_POST["supplies"]);
-            $canPayFee = test_input($_POST["canPayFee"]);
-            $ambassadorStatus = test_input($_POST["ambassadorStatus"]);
-            $concerns = test_input($_POST["concerns"]);
-            $method = test_input($_POST["method"]);
-        }
-
+	
 		function concatenateStringSubitems($array, &$concatResult)
 		{
 			$arrayCount = count($array);
@@ -97,7 +43,62 @@
 				}
 			}
 		}
+		
+		// Recursive function that trims whitespace, strips slashes, and converts html special characters.
+        // This is used to validate user input for security.
+        function test_input(&$data)
+        {
+            if (is_array($data))
+            {
+                foreach ($data as &$subItem)
+                {
+                    $subItem = test_input($subItem);
+                }
+            }
+            
+            else
+            {           
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+            }
+            
+            return $data;
+        }
         
+	
+		session_start();
+		
+		$submittedBool = $_SESSION['has_submitted'];
+		
+		if(!$submittedBool)
+		{
+        if ($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+			
+			$email = $_SESSION['logged_in_user_email'];
+            $orgName = test_input($_POST["orgName"]);
+            $primaryPhoneNumber = test_input($_POST["primaryPhoneNumber"]);
+            $contactTimes = test_input($_POST["contactTimes"]);
+            $streetAddress = test_input($_POST["streetAddress"]);
+			$city = test_input($_POST["city"]);
+			$state = test_input($_POST["state"]);
+			$zip = test_input($_POST["zip"]);
+            $requestedPresentation = test_input($_POST["requestedPresentation"]);
+			$numberOfPresentations = test_input($_POST["numberOfPresentations"]);
+            $requestedHandsOnActivity = test_input($_POST["requestedHandsOnActivity"]);
+            $gradeLevels = test_input($_POST["gradeLevels"]);
+            $numStudents = test_input($_POST["numStudents"]);
+            $date = test_input($_POST["date"]);
+            $time = test_input($_POST["time"]);
+            $days = test_input($_POST["days"]);
+            $supplies = test_input($_POST["supplies"]);
+            $canPayFee = test_input($_POST["canPayFee"]);
+            $ambassadorStatus = test_input($_POST["ambassadorStatus"]);
+            $concerns = test_input($_POST["concerns"]);
+            $method = test_input($_POST["method"]);
+        }
+
 		if(!(empty($requestedPresentation)))//if not empty. empty() returns true if the variable is empty.
 		{
 			concatenateStringSubitems($requestedPresentation, $concatRequestedPresentations);
@@ -162,30 +163,6 @@
 			$concatMethod = "No alternative presentation methods requested.";
 		}
 
-        // Recursive function that trims whitespace, strips slashes, and converts html special characters.
-        // This is used to validate user input for security.
-        function test_input(&$data)
-        {
-            if (is_array($data))
-            {
-                foreach ($data as &$subItem)
-                {
-                    $subItem = test_input($subItem);
-                }
-            }
-            
-            else
-            {           
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-            }
-            
-            return $data;
-        }
-        
-        //phpinfo(); // Prints a LOT of information about the current PHP installation on the Apache server.
-
         $server = "localhost";
         $user = "test1";
         $pass = "test1";
@@ -197,9 +174,6 @@
             die("Connection Failed: ".$dbConnection->connect_error);
             exit();
         }
-
-        else
-            echo "Successfully created connection to SQL database<br><br>";
 	   
 	   $time_date_created = date("Y-m-d H:i:s");
 	   
@@ -220,7 +194,16 @@
 		echo $dbConnection->error;
 
 		$preparedStatement->close();
-        mysqli_close($dbConnection)
+        mysqli_close($dbConnection);
+		$_SESSION['has_submitted'] = TRUE;
+		}
+		
+		else
+		{
+			
+			echo "You have already submitted this request.";
+			
+		}
         ?>
     </body>
 </html>
