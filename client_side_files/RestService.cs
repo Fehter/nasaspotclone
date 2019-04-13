@@ -8,6 +8,7 @@ using System.Text;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using Xamarin.Forms;
 using System.Security.Cryptography; // This library gives us access to several different hashing algorithms. Hopefully one of those algorithms will match whatever is available in PHP (for the create request web page).
 using Newtonsoft.Json;
 using SPOT_App.Models; // This is necessary because the LoginResponse class is defined in the SPOT_App.Models namespace.
@@ -582,6 +583,93 @@ namespace SPOT_App
             }
 
             Debug.WriteLine("********** RestService.test_POST() END **********");
+        }
+
+        //==============================================================================================================================================================================// 
+
+        // Utility function -- accepts an argument string and returns the same string with white space characters removed.
+        public string RemoveWhiteSpace(String str)
+        {
+            string stringWithNoWhiteSpace = "";
+
+            foreach (Char character in str)
+            {
+                if (!Char.IsWhiteSpace(character))
+                    stringWithNoWhiteSpace += character.ToString();
+            }
+
+            return stringWithNoWhiteSpace;
+        }
+
+        // Utility function -- accepts an argument string and returns the same string with extra "+" characters removed.
+        // As an example, the argument string "a++++b+c" would become "a+b+c".
+        public string RemoveExtraPlusCharacters(String str)
+        {
+            string formattedString = "";
+
+            // For documentation see: https://docs.microsoft.com/en-us/dotnet/api/system.string.split?view=netframework-4.7.2#System_String_Split_System_Char___System_StringSplitOptions_
+            string[] strArray = str.Split(new char[] { '+' }, StringSplitOptions.RemoveEmptyEntries);
+
+            formattedString = string.Join("+", strArray);
+
+            return formattedString;
+        }
+
+        // This function is called by the DisplayGoogleMapsDirections() function of the RestService class.
+        // It converts and argument string into a format that can be inserted into a Google Maps URI.
+        // An example Google Maps URI is as follows:
+        // http://maps.google.com/maps?saddr=fairmont+wv&daddr=new+york+8th+avenue&directionsmode=driving
+        public string ConvertToGoogleMapsUriFormat(String str)
+        {
+            // Remove white space characters from beginning and end of the string.
+            str = str.Trim();
+            Debug.WriteLine("RestService.ConvertToGoogleMapsUriFormat(): " + str);
+
+            // Replace " " and "," characters with a "+" character.
+            str = str.Replace(' ', '+');
+            str = str.Replace(',', '+');
+            Debug.WriteLine("RestService.ConvertToGoogleMapsUriFormat(): " + str);
+
+            // Remove all white space characters from the string.
+            str = this.RemoveWhiteSpace(str);
+            Debug.WriteLine("RestService.ConvertToGoogleMapsUriFormat(): " + str);
+
+            // Remove any extra "+" characters from the string.
+            str = this.RemoveExtraPlusCharacters(str);
+            Debug.WriteLine("RestService.ConvertToGoogleMapsUriFormat(): " + str);
+
+            return str;
+        }
+
+        // This function uses a Google Maps URI to display the how far away the presentation location is from the user's current location.
+        // It assumes that the location string stored in the PresentationLocation() get/set function of the argument RequestViewModel object uses a "," character as a delimiter.
+        // Note that, on an emulator, this function will not be able to identify the user's location -- this will need to be tested on an actual phone.
+        public void DisplayGoogleMapsDirections(RequestViewModel rvm)
+        {
+            try
+            {
+                Debug.WriteLine("********** RestService.DisplayGoogleMapsDirections() START **********");
+                                
+                string locationContent = this.ConvertToGoogleMapsUriFormat(rvm.PresentationLocation);
+
+                //string startingLocation = "my+location"; // This should work when this function is called on a phone -- on an emulator it cannot figure out the user's location.                
+                string startingLocation = "fairmont+wv"; // This is a placeholder so that this function will operate correctly on an emulator -- when we test this on a phone, this line must be replaced with the above commented-out line.
+                string destinationLocation = locationContent;
+
+                // Create the URI that will be opened with Google Maps.
+                var uri = new Uri("http://maps.google.com/maps?" + "saddr=" + startingLocation + "&daddr=" + destinationLocation + "&directionsmode=driving");
+
+                // Open the URI.
+                Device.OpenUri(uri);
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.DisplayGoogleMapsDirections(): something went wrong!");
+            }
+
+            Debug.WriteLine("********** RestService.DisplayGoogleMapsDirections() END **********");
         }
     }
 }
