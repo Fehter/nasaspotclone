@@ -15,13 +15,22 @@ namespace SPOT_App
         {
             this.restService = restService;
             this.user = user;
-            InitializeComponent();         
+            InitializeComponent();
+            if (user.IsAdmin == "1")
+            {
+                addUser.IsVisible = true;
+            }
         }
 
         // The following "_Button_Clicked" methods catch events from the buttons created in the "HomePage.xaml" file.
         private async void RequestsPage_Button_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RequestsPage(restService));
+        }
+
+        private async void AddUser_Button_Clicked(object sender, EventArgs e)
+        {
+          //  await Navigation.PushAsync(new AddUserPage(restService));
         }
 
         // This function causes the application to go back to the root page by popping all non-root pages off the stack of pages.

@@ -10,6 +10,7 @@
                     
                     <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
                         <Button Text="Requests Page" Clicked="RequestsPage_Button_Clicked" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Button x:Name="addUser" Text="Add User" Clicked="AddUser_Button_Clicked" HorizontalOptions="Center" VerticalOptions="Center" IsVisible ="false"/>
                         <Button Text="Logout" Clicked="Logout_Button_Clicked" HorizontalOptions="Center" VerticalOptions="End"/>
                     </StackLayout>
                     
