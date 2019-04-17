@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SPOT_App.RequestDetailPage"
+             Title="Request Details">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="headerTextColor">Default</Color>
+            <Color x:Key="contentTextColor">Black</Color>
+
+            <x:Double x:Key="headerFontSize">11</x:Double>
+            <x:Double x:Key="contentFontSize">10</x:Double>
+        </ResourceDictionary>        
+    </ContentPage.Resources>
+    
+	<ContentPage.Content>
+		<ScrollView>			
+			<StackLayout Spacing="10" Padding="10">
+
+				<StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Name:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding Name}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+				</StackLayout>
+                    
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Organization Name:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding OrganizationName}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Email:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding Email}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Primary Phone Number:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding PrimaryPhoneNumber}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Contact Times:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding ContactTimes}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Presentation Location:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding PresentationLocation}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Presentation Requested:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding SubjectRequested}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Presentation Rotations:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding PresentationRotations}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Hands on Activity:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding HandsOnActivity}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Grade Levels:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding GradeLevels}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Number of Students:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding NumberOfStudents}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Proposed Date and Time:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding ProposedDateAndTime}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Supplies:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding Supplies}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Travel Fee:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding TravelFee}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Ambassador Status:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding AmbassadorStatus}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Label Text="Other Concerns:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding OtherConcerns}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+                
+                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
+                    <Button Text="Accept Request" FontSize="13" Clicked="AcceptRequest_Button_Clicked" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </StackLayout>
+
+            </StackLayout>			
+		</ScrollView>
+	</ContentPage.Content>
+</ContentPage>

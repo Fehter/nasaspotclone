@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    
+        <title>2018-2019 Presentation Request Form</title>
+
+        <h1><center><font color=#000000><i>2018-2019 Presentation Request Form</i></font></center></h1>
+    </head>
+    <body>    
+        <div class="requestFormContainer">
+            <form action="handle_form.php" id="requestFormId" class="requestFormClass" method="post" target="_blank"> <!-- target="_self" -->
+                <p>Welcome! Thanks for your interest in WV SPOT. We have implemented this form to help us organize our presentations and do our best to get to as many schools as we can. Please fill it out with as much information as you can provide. Once you have submitted the information, we will e-mail you and begin trying to find an ambassador that can facilitate your request on the day(s) you've specified. Thank you! We look forward to presenting at your school.</p>
+            
+				<label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="example@gmail.com" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="" required>
+            
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="eg. John" required>
+				
+				<label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="eg.Smith" required>
+
+                <label for="orgName">School or Organization Name</label>
+                <input type="text" id="orgName" name="orgName" placeholder="Generic Elementary School" required>
+                
+                <label for="primaryPhoneNumber">Contact Phone Number</label>
+                <input type="text" id="primaryPhoneNumber" name="primaryPhoneNumber" placeholder="1-234-567-8901" required>
+                
+                <label for="contactTimes">Days and Times to Call You</label>
+                <input type="text" id="contactTimes" name="contactTimes" placeholder="Ex: Mondays at 10:30am, Tuesdays between 3:00pm and 7:00pm" required>
+				
+                <label for="streetAddress">Street Address</label>
+                <input type="text" id="streetAddress" name="streetAddress" placeholder="Ex: 123 Generic St." required>
+				
+				<label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="Ex: Fairmont" required>
+				
+				<label for="state">State</label>
+				<select type ="text" id ="state">
+					<option value="AL">Alabama</option>
+					<option value="AK">Alaska</option>
+					<option value="AZ">Arizona</option>
+					<option value="AR">Arkansas</option>
+					<option value="CA">California</option>
+					<option value="CO">Colorado</option>
+					<option value="CT">Connecticut</option>
+					<option value="DE">Delaware</option>
+					<option value="DC">District Of Columbia</option>
+					<option value="FL">Florida</option>
+					<option value="GA">Georgia</option>
+					<option value="HI">Hawaii</option>
+					<option value="ID">Idaho</option>
+					<option value="IL">Illinois</option>
+					<option value="IN">Indiana</option>
+					<option value="IA">Iowa</option>
+					<option value="KS">Kansas</option>
+					<option value="KY">Kentucky</option>
+					<option value="LA">Louisiana</option>
+					<option value="ME">Maine</option>
+					<option value="MD">Maryland</option>
+					<option value="MA">Massachusetts</option>
+					<option value="MI">Michigan</option>
+					<option value="MN">Minnesota</option>
+					<option value="MS">Mississippi</option>
+					<option value="MO">Missouri</option>
+					<option value="MT">Montana</option>
+					<option value="NE">Nebraska</option>
+					<option value="NV">Nevada</option>
+					<option value="NH">New Hampshire</option>
+					<option value="NJ">New Jersey</option>
+					<option value="NM">New Mexico</option>
+					<option value="NY">New York</option>
+					<option value="NC">North Carolina</option>
+					<option value="ND">North Dakota</option>
+					<option value="OH">Ohio</option>
+					<option value="OK">Oklahoma</option>
+					<option value="OR">Oregon</option>
+					<option value="PA">Pennsylvania</option>
+					<option value="RI">Rhode Island</option>
+					<option value="SC">South Carolina</option>
+					<option value="SD">South Dakota</option>
+					<option value="TN">Tennessee</option>
+					<option value="TX">Texas</option>
+					<option value="UT">Utah</option>
+					<option value="VT">Vermont</option>
+					<option value="VA">Virginia</option>
+					<option value="WA">Washington</option>
+					<option value="WV">West Virginia</option>
+					<option value="WI">Wisconsin</option>
+					<option value="WY">Wyoming</option>
+				</select><br>
+				
+				<label for="zip">Zip</label>
+                <input type="text" id="zip" name="zip" placeholder="Ex: 12345" required>
+
+                <label for="requestedPresentationsList">Presentations Requested</label>
+                <p>Check "Any presentation" if you are completely flexible, or check those that you would be interested/willing to have. (*) indicates availability for visits outside of West Virginia. Read a description of each presentation and learn which content standards they meet here: <a href="https://sites.google.com/site/wvaspot/home/presentations">https://sites.google.com/site/wvaspot/home/presentations</a>.</p>
+                <ul id="requestedPresentationsList">
+                    <li><input type="checkbox" id="requestedPresentation1" name="requestedPresentation[]" value="Any presentation."></li>
+                    <li><input type="checkbox" id="requestedPresentation2" name="requestedPresentation[]" value="The Invisible Universe 2.0 (good for middle school or older)."></li>
+                    <li><input type="checkbox" id="requestedPresentation3" name="requestedPresentation[]" value="Water: The Source of Life (good for all ages) [K-3 specific presentation coming soon!]."></li>
+                    <li><input type="checkbox" id="requestedPresentation4" name="requestedPresentation[]" value="NANOGrav: Tuning in to Einstein's Universe (good for high school or older)."></li>
+                    <li><input type="checkbox" id="requestedPresentation5" name="requestedPresentation[]" value="Mars: Past, Present, Future."></li>
+                    <li><input type="checkbox" id="requestedPresentation6" name="requestedPresentation[]" value="The International Space Station."></li>
+                    <li><input type="checkbox" id="requestedPresentation7" name="requestedPresentation[]" value="How to Make a Planet... with Life!"></li>
+                    <li><input type="checkbox" id="requestedPresentation8" name="requestedPresentation[]" value="The Star of Our World."></li>
+                </ul>
+                
+                <label for="numberOfPresentations">How many rotations of each presentation are desired?</label>
+                <p>Each presentation is roughly 45 minutes (30 minutes for the interactive slide show and 15 minutes for questions). Four presentations is the max we expect our presenters to do in one day. We recommend smaller groups, but we can accommodate assemblies or even multiple visits if necessary.</p>
+                <input type="number" id="numberOfPresentations" name="numberOfPresentations" placeholder="Ex: 1" required><br><br>
+                
+                <label for="handsOnActivitiesList">Would you like to also schedule additional time for a hands on activity?</label>
+                <p>Hands on activities are available for groups of 30 students or less. Please refer to descriptions of the hands-on activities we offer here: <a href="https://sites.google.com/site/wvaspot/home/hands-on-activities">https://sites.google.com/site/wvaspot/home/hands-on-activities</a>. You can also do these on your own before or after we arrive to enhance the students' experience.</p>
+                <ul id="handsOnActivitiesList">
+                    <li><input type="checkbox" id="requestedHandsOnActivity1" name="requestedHandsOnActivity[]" value="No hands-on component requested."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity2" name="requestedHandsOnActivity[]" value="Build a Molecule (30 minutes) - Good for all ages. Best with &quot;How to Make a Planet... with Life!&quot; presentation."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity3" name="requestedHandsOnActivity[]" value="Design an Alien (30 minutes) - Good for all ages. Best with &quot;How to Make a Planet...with Life!&quot; presentation."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity4" name="requestedHandsOnActivity[]" value="Pocket Solar System (20-30 minutes) - Good for all ages and presentations."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity5" name="requestedHandsOnActivity[]" value="Sizing Up the Moon (30 minutes) - Good for all ages and presentations."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity6" name="requestedHandsOnActivity[]" value="Green Bank Telescope Engineering Design Challenge (60-90 minutes) - Good for middle school and older. Best with the &quot;The Invisible Universe 2.0&quot; presentation."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity7" name="requestedHandsOnActivity[]" value="Programming a Robotic Arm (30 minutes) - Good for middle school and older. Best with &quot;The International Space Station&quot; and &quot;Mars: Past, Present, Future&quot; presentations."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity8" name="requestedHandsOnActivity[]" value="Electromagnetic War (15-30 minutes) - Good for all ages. Best with the &quot;The Invisible Universe 2.0&quot; and &quot;Space Telescopes: Searching for Other Worlds&quot; presentations."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity9" name="requestedHandsOnActivity[]" value="Build-Your-Own Watershed (30 minutes) - Good for all ages. Best with &quot;Water: The Source of Life&quot; presentation."></li>
+                    <li><input type="checkbox" id="requestedHandsOnActivity10" name="requestedHandsOnActivity[]" value="A Drop in the Bucket (15-30 minutes) - Good for all ages. Best with &quot;Water: The Source of Life&quot; presentation."></li>
+                </ul>
+                
+                <label for="gradeLevels">Grade Level(s)</label>
+                <input type="text" id="gradeLevels" name="gradeLevels" placeholder="Ex: 3rd-6th, 8th, etc." required>
+                
+                <label for="numStudents">How many total students would we see during our visit?</label>
+                <p>An exact number isn't needed, only an estimate. We generally try to see at least 100 students per visit, but it's not a requirement.</p>
+                <input type="number" id="numStudents" name="numStudents" placeholder="Ex: 150" required><br><br>
+                
+                <label for="date">Proposed Date and Time</label>
+                <p>We will do our best to get to you for your requested date, but please recognize that our ambassadors are busy college students and some flexibility is necessary.</p>                
+                <input type="date" id="date" name="date" required>
+                <input type="time" id="time" name="time" required> Ex: 10:30 AM<br><br>
+                
+                <label for="preferredDays">Please select your preferred days of the week.</label>
+                <ul id="preferredDays">
+                    <li>
+						<label for = "days1"><input type="checkbox" id="days1" name="days[]" value="Monday"></label>
+						<label for = "days1"><input type="checkbox" id="days2" name="days[]" value="Tuesday"></label>
+						<label for = "days1"><input type="checkbox" id="days3" name="days[]" value="Wednesday"></label>
+						<label for = "days1"><input type="checkbox" id="days4" name="days[]" value="Thursday"></label>
+						<label for = "days1"><input type="checkbox" id="days5" name="days[]" value="Friday"></label>
+						<label for = "days1"><input type="checkbox" id="days6" name="days[]" value="Saturday"></label>
+						<label for = "days1"><input type="checkbox" id="days7" name="days[]" value="Sunday"></label>
+					</li>
+                </ul>
+				
+                <label for="suppliesList">Please give us an idea of the supplies you have. Check all that apply.</label>
+                <p>If you don't have some of these supplies, we'll try to find some of our own to bring.</p>
+                <ul id="suppliesList">
+                    <li><input type="checkbox" id="supplies1" name="supplies[]" value="Projector, blank screen or wall, and dark room."></li>
+                    <li><input type="checkbox" id="supplies2" name="supplies[]" value="Speakers with laptop plug-in."></li>
+                    <li><input type="checkbox" id="supplies3" name="supplies[]" value="Computer with flash drive plug-in."></li>
+                    <li><input type="checkbox" id="supplies4" name="supplies[]" value="Extension Cord."></li>
+                    <li><input type="checkbox" id="supplies5" name="supplies[]" value="Microphone."></li>
+                    <li>Other:<input type="text" id="suppliesCustom" name="supplies[]" placeholder="Ex: laser pointer, chalkboard, etc."></li>
+                </ul>
+                
+                <label for="canPayFee">I will be able to provide a $50 travel fee to cover the ambassador's travel.</label>
+                <p>We will provide a Travel Invoice. Please make checks payable to AUI/GBO then mail to Kristine Sharp, Green Bank Observatory P.O. Box 2 Green Bank, WV 24944</p>
+                <input type="radio" id="canPayFee" name="canPayFee" value="yes" required> Yes
+                <input type="radio" id="cannotPayFee" name="canPayFee" value="no" required> No<br><br><br>
+                
+                <label for="ambassadorStatus">I understand that SPOT Ambassadors are not employees of any government agency, and I take responsibility for them on school grounds.</label><br><br>
+                <input type="checkbox" id="ambassadorStatus" name="ambassadorStatus" value="yes" required> Yes<br><br><br>          
+
+                <label for="concerns">If you have any other concerns or thoughts about your SPOT visit, please indicate them below.</label>
+                <textarea id="concerns" name="concerns" placeholder="Ex: The students are mentally challenged." style="height:150px"></textarea>
+                
+                <label for="alternativePresentationMethodsList">Interested in alternative ways to receive a presentation?</label>
+                <p>Check if you are interested in these options below and we will try to accommodate.</p>
+                <ul id="alternativePresentationMethodsList">
+                    <li><input type="checkbox" id="method1" name="method[]" value="I am interested in scheduling a field trip to receive a presentation at a WV college campus."></li>
+                    <li><input type="checkbox" id="method2" name="method[]" value="I am interested in scheduling a Skype virtual presentation."></li>
+                    <li>Other:<input type="text" id="customMethod" name="method[]" placeholder=""></li>
+                </ul>
+
+                <input type="submit" value="Submit Request">
+            </form>
+        </div>
+        
+        <script type="text/javascript">
+            // This function takes the contents of the "value" property of each checkbox and appends it onto the end of the list item in which that checkbox is located.
+            // This was done to avoid repetition.
+            $(document).ready(function() {
+                $("#requestedPresentationsList li input[type='checkbox']").each(function(index, element) {
+                    $(element).parent().append($(element).val()); // It's "$(element)" not "element" because "element" is a DOM object -- we want a jQuery object so we have to wrap "element" with "$()"              
+                });
+                
+                $("#handsOnActivitiesList li input[type='checkbox']").each(function(index, element) {
+                    $(element).parent().append($(element).val());                
+                });
+                
+                $("#preferredDays li input[type='checkbox']").each(function(index, element) {
+                    $(element).parent().append($(element).val());              
+                });
+                                
+                $("#suppliesList li input[type='checkbox']").each(function(index, element) {
+                    $(element).parent().append($(element).val());              
+                });
+                
+                $("#alternativePresentationMethodsList li input[type='checkbox']").each(function(index, element) {
+                    $(element).parent().append($(element).val());              
+                });
+            });
+        </script>
+    </body>
+</html>

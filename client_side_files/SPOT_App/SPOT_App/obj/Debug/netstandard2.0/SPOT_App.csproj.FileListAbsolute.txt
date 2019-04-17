@@ -1,0 +1,16 @@
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\bin\Debug\netstandard2.0\SPOT_App.deps.json
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\bin\Debug\netstandard2.0\SPOT_App.dll
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\SPOT_App.csprojAssemblyReference.cache
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\HomePage.xaml.g.cs
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\LoginPage.xaml.g.cs
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\RequestDetailPage.xaml.g.cs
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\RequestsPage.xaml.g.cs
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\TitlePage.xaml.g.cs
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\SPOT_App.csproj.CoreCompileInputs.cache
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\SPOT_App.AssemblyInfoInputs.cache
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\SPOT_App.AssemblyInfo.cs
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\bin\Debug\netstandard2.0\SPOT_App.pdb
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\SPOT_App.dll
+C:\Users\zacha\source\Repos\SPOT_App\SPOT_App\SPOT_App\obj\Debug\netstandard2.0\SPOT_App.pdb
