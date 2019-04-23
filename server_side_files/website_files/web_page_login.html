@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    
+        <title>2018-2019 SPOT Login</title>
+
+		<h1><center><font color=#000000><i>2018-2019 Presentation Request Form</i></font></center></h1>
+    </head>
+
+    <body>
+			
+				<div class="requestFormContainer">
+				
+					<form action="web_page_login.php" id="loginFormID" class="requestFormClass" method="post">
+						<p>Welcome! Please login to continue.</p>
+            
+					<label for="email">Email</label>
+						<input type="text" id="email" name="email" placeholder="example@gmail.com" required>
+	
+						<label for="password">Password</label>
+						<input type="password" encrypt="sha2" id="password" name="password"  placeholder="" required>
+						<input type="submit" name ="submit" value="Login">
+					</form>
+				</div>
+					
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    
+        <title>2018-2019 SPOT Login</title>
+
+		<h1><center><font color=#000000><i>2018-2019 Presentation Request Form</i></font></center></h1>
+    </head>
+
+    <body>
+			
+				<div class="requestFormContainer">
+				
+					<form action="../application_files/unassign_request.php" id="loginFormID" class="requestFormClass" method="post">
+						<p>Welcome! Please login to continue.</p>
+						
+					<label for="teacherEmail">teacherEmail</label>
+						<input type="text" id="teacherEmail" name="teacherEmail" placeholder="example@gmail.com" required>
+						
+					<label for="presentationID">presentationID</label>
+						<input type="integer" id="presentationID" name="presentationID" placeholder="example@gmail.com" required>
+	
+						<input type="submit" name ="submit" value="Login">
+					</form>
+				</div>
+					
+	</body>
+</html>
