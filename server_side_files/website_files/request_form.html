@@ -7,6 +7,26 @@
         <title>2018-2019 Presentation Request Form</title>
     </head>
     <body>    
+	
+		<?php
+			
+			if(isset($_SESSION['logged_in_user_email']) && isset($_SESSION['isAdministrator']))
+			{
+				if($_SESSION['isAdministrator'] == true)
+				{
+					//end php to include a button link to create a user in the html
+					?>
+				
+						<form action="create_user.html">
+							<input type="submit" value="Create New User" />
+						</form>
+				
+					<?php
+				}
+			}
+			
+		?>
+		
         <div class="requestFormContainer">
             <form action="handle_form.php" id="requestFormId" class="requestFormClass" method="post"> 
                 <p>Thanks for your interest in WV SPOT. We have implemented this form to help us organize our presentations and do our best to get to as many schools as we can. Please fill it out with as much information as you can provide. Once you have submitted the information, we will e-mail you and begin trying to find an ambassador that can facilitate your request on the day(s) you've specified. Thank you! We look forward to presenting at your school.</p>
