@@ -12,7 +12,7 @@ public class User
         public string LastName { get; set; }
         public string PrimaryPhoneNumber { get; set; }
         public string IsAmbassador { get; set; }
-        public string IsPresenter { get; set; }
+        public string IsTeacher { get; set; }
         public string IsAdmin { get; set; }
 
         public string GetContents() // Utility function to quickly get the contents of the current LoginResponse
@@ -23,7 +23,7 @@ public class User
                 "LastName = " + LastName + "\n" +
                 "PrimaryPhoneNumber = " + PrimaryPhoneNumber + "\n" +
                 "IsAmbassador = " + IsAmbassador + "\n" +
-                "IsPresenter = " + IsPresenter + "\n" +
+                "IsTeacher = " + IsTeacher + "\n" +
                 "IsAdmin = " + IsAdmin + "\n";
         }
     }//end user class

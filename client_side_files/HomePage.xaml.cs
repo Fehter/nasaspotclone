@@ -30,7 +30,7 @@ namespace SPOT_App
 
         private async void AddUser_Button_Clicked(object sender, EventArgs e)
         {
-          //  await Navigation.PushAsync(new AddUserPage(restService));
+            await Navigation.PushAsync(new AddUserPage(restService));
         }
 
         // This function causes the application to go back to the root page by popping all non-root pages off the stack of pages.
@@ -39,6 +39,7 @@ namespace SPOT_App
         // which is located in the App.xaml.cs file.
         private async void Logout_Button_Clicked(object sender, EventArgs e)
         {
+            restService.Logout();
             await Navigation.PopToRootAsync();
         }
     }

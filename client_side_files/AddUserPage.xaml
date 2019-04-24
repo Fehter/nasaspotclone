@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SPOT_App.AddUserPage"
+             Title="Add A New User">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="0" Padding="0">
+                <StackLayout Spacing="0" Padding="10">
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal">
+                        <Label Text="Email for User:" TextColor="Black" FontSize="10" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="130"/>
+                        <Entry x:Name="Email" HorizontalOptions="FillAndExpand" FontSize="10"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal">
+                        <Label Text="Password for New User:" TextColor="Black" FontSize="11" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="130"/>
+                        <Entry x:Name ="Password" HorizontalOptions="FillAndExpand" FontSize="10" IsPassword="True"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal">
+                        <Label Text="User's First Name:" TextColor="Black" FontSize="11" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="130"/>
+                        <Entry x:Name ="FirstName" HorizontalOptions="FillAndExpand" FontSize="10"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal">
+                        <Label Text="User's Last Name:" TextColor="Black" FontSize="11" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="130"/>
+                        <Entry x:Name ="LastName" HorizontalOptions="FillAndExpand" FontSize="10"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal">
+                        <Label Text="User's Phone Number:" TextColor="Black" FontSize="11" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="130"/>
+                        <Entry x:Name ="PhoneNumber" HorizontalOptions="FillAndExpand" FontSize="10"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal">
+                        <Label Text="Is the User an Ambassador?" TextColor="Black" FontSize="11" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="130"/>
+                        <Switch x:Name="IsAmbassador" IsToggled="False"  HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal">
+                        <Label Text="Is the User a Teacher?" TextColor="Black" FontSize="11" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="130"/>
+                        <Switch x:Name="IsTeacher" IsToggled = "False"  HorizontalOptions="EndAndExpand" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal">
+                        <Label Text="Is the User an Administrator?" TextColor="Black" FontSize="11" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="130"/>
+                        <Switch x:Name="IsAdmin" IsToggled = "False"  HorizontalOptions="EndAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Spacing="0" Padding="0" HorizontalOptions ="Center" Orientation="Horizontal">
+                    <Button Text="Add User" FontSize="11" Clicked="Add_User_Button_Clicked" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Button Text="Cancel" FontSize="11" Clicked="Cancel_Button_Clicked" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

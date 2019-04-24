@@ -74,7 +74,7 @@ namespace SPOT_App
 
             //restService.testPasswordHashing();
 
-            restService.DisplayGoogleMapsDirections(requestViewModel);
+            //restService.DisplayGoogleMapsDirections(requestViewModel);
 
             // The following login() calls will all fail (assuming you are using Kyle's database):
             //restService.login("testuseremail11@test.com", "password1");
@@ -83,7 +83,7 @@ namespace SPOT_App
             //restService.login("testuseremail1@test.com", "password11");
             //restService.GetUserData("testuseremail1@test.com");
             // I've commented out the following line because, for testing connectivity, we do not need to construct any GUI related objects.
-            //MainPage = new NavigationPage(new TitlePage(restService)); // This causes the LoginPage to be the first thing the user sees.
+            MainPage = new NavigationPage(new TitlePage(restService)); // This causes the LoginPage to be the first thing the user sees.
         }
 
         protected override void OnStart()

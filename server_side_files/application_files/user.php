@@ -113,7 +113,7 @@ class User
     // It will return the query results to the PHP file that called this function.
     function login()
     {        
-        $query = "SELECT email, password, isTeacher, isAdministrator FROM spot.".$this->user_table_name." WHERE email='".$this->email."' AND password='".$this->password."'";
+        $query = "SELECT email, password FROM spot.".$this->user_table_name." WHERE email='".$this->email."' AND password='".$this->password."'";
         // The above query is equivalent to this following example query assuming email == "testuseremail1@test.com" and password == "password1":
         // SELECT email, password FROM spot.users WHERE email='testuseremail1@test.com' AND password='password1'
         
@@ -169,11 +169,9 @@ class User
         // NOTE: the "." indicates a concatenation -- I am concatenating values from the POST superglobal into the query string.
 		try
         {
-			
             // Prepare the query by calling the "prepare()" function of the PDO object "connection".
             // This prepare() function returns an executable "statement" object.
-			$preparedStatement = $this->connection->prepare("INSERT INTO spot.users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)".
-		        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			$preparedStatement = $this->connection->prepare("INSERT INTO spot.users (`email`, `password`, `first_name`, `last_name`, `phone_number`, `isAmbassador`, `isTeacher`, `isAdministrator`) VALUES (?, ?, ?, ?, ?, ?,?, ?)");
 				
 			$preparedStatement->bindParam(1, $email, PDO::PARAM_STR);
 			$preparedStatement->bindParam(2, $password, PDO::PARAM_STR);
@@ -188,13 +186,14 @@ class User
             // To be sure that this statement actually did something, you should look at the database table you attempted to insert data into.
             $preparedStatement->execute();
 			$preparedStatement->closeCursor();
-			echo "User has been created"."<br>";
-           
+			//echo "User has been created";
+           return "Success";
         }
         
         catch(PDOException $e)
         {
-            echo "PHP web service: user.php: addUser(): Failed to add user" . $e->getMessage().PHP_EOL;
+          //  echo "PHP web service: user.php: addUser(): Failed to add user" . $e->getMessage().PHP_EOL;
+			return "Failed";
         }
 	}
 }

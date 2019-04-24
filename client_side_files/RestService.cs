@@ -45,7 +45,7 @@ namespace SPOT_App
             Debug.WriteLine("********** RestService.test_getData() START **********");
 
             // Create a "Uniform Resource Identifier" that holds the IP, port number, and directory location of the PHP web service file "test_get_data.php".
-            var uri = new Uri("http://10.0.2.2:80/test/application_files/test_get_data.php");
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/test_get_data.php");
 
             try
             {
@@ -84,7 +84,7 @@ namespace SPOT_App
             Debug.WriteLine("********** RestService.test_setData() START **********");
 
             // Create a "Uniform Resource Identifier" that holds the IP, port number, and directory location of the PHP web service file "test_set_data.php".
-            var uri = new Uri("http://10.0.2.2:80/test/application_files/test_set_data.php");
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/test_set_data.php");
 
             try
             {
@@ -129,7 +129,7 @@ namespace SPOT_App
             Debug.WriteLine("********** RestService.GetRequestData() START **********");
 
             // Identify the target PHP file.
-            var uri = new Uri("http://10.0.2.2:80/test/application_files/get_request_data.php");
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/get_request_data.php");
 
             try
             {
@@ -198,7 +198,7 @@ namespace SPOT_App
             Debug.WriteLine("********** RestService.test_login() START **********");
 
             // Identify the target PHP file.
-            var uri = new Uri("http://10.0.2.2:80/test/application_files/login.php");
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/login.php");
 
             try
             {
@@ -286,7 +286,7 @@ namespace SPOT_App
             // Subsequently store the string hash of the password in the hashedPassword variable.
             string hashedPassword = getPasswordHash(password);
 
-            var uri = new Uri("http://10.0.2.2:80/test/application_files/test_password_hashing.php");
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/test_password_hashing.php");
 
             try
             {
@@ -328,7 +328,7 @@ namespace SPOT_App
             Debug.WriteLine("** RestService.GetUserData() START **");
 
             // Identify the target PHP file.
-            var uri = new Uri("http://10.0.2.2:80/test/application_files/get_user_data.php");
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/get_user_data.php");
 
             try
             {
@@ -368,6 +368,67 @@ namespace SPOT_App
 
 
         }
+
+        public async void AddUser(string email, string password, string firstName, string lastName, string phoneNumber, string isAmbassador, string isTeacher, string isAdmin) {
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/add_user.php");
+            Debug.WriteLine("Values are as follows:");
+            Debug.WriteLine(isAmbassador);
+            Debug.WriteLine(isTeacher);
+            Debug.WriteLine(isAdmin);
+            try
+            {
+                // Create the content that will be posted to the target PHP file.
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("email", email),
+                    new KeyValuePair<string, string>("password", password),
+                    new KeyValuePair<string, string>("firstName", firstName),
+                    new KeyValuePair<string, string>("lastName", lastName),
+                    new KeyValuePair<string, string>("phoneNumber", phoneNumber),
+                    new KeyValuePair<string, string>("isAmbassador", isAmbassador),
+                    new KeyValuePair<string, string>("isTeacher", isTeacher),
+                    new KeyValuePair<string, string>("isAdmin", isAdmin)
+                });
+
+                // Send the POST request to the PHP file at the specified URI.
+                HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+                // Read the HttpResponseMessage's Content property as a string.                
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine(responseContent);
+
+                Debug.WriteLine("RestService.AddUser(): RESPONSE CONTENT END");
+
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.AddUser(): something went wrong!");
+            }
+        }
+
+        //==============================================================================================================================================================================//
+        // This function will log the user out, destroying the php session.
+        public async void Logout() {
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/logout.php");
+
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(uri);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine("RestService.Logout: LOGOUT: RESPONSE CONTENT AS FOLLOWS:");
+                Debug.WriteLine(responseContent);
+                Debug.WriteLine("RestService.Logout(): LOGOUT: RESPONSE CONTENT END");
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.Fail("RestService.Logout(): LOGOUT: something went wrong while attempting to logout!");
+            }
+        }
         //==============================================================================================================================================================================//
 
         // This is a test function. It is meant to connect to a PHP web service that remembers the username of the user who logs in (this is done via $_SESSION in the PHP file).
@@ -393,7 +454,7 @@ namespace SPOT_App
             //----------------------------------------------------------------------------------------------------------//
             // Attempt login.
 
-            var uri = new Uri("http://10.0.2.2:80/test/application_files/login.php");
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/login.php");
 
             try
             {
@@ -437,7 +498,7 @@ namespace SPOT_App
             //----------------------------------------------------------------------------------------------------------//
             // Attempt to get request data.
 
-            uri = new Uri("http://10.0.2.2:80/test/application_files/get_request_data.php");
+            uri = new Uri("http://75.108.69.184:1337/server_side_files/get_request_data.php");
 
             try
             {
@@ -484,7 +545,7 @@ namespace SPOT_App
             //----------------------------------------------------------------------------------------------------------//
             // Attempt to logout.
 
-            uri = new Uri("http://10.0.2.2:80/test/application_files/logout.php");
+            uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/logout.php");
 
             try
             {
@@ -505,7 +566,7 @@ namespace SPOT_App
             //----------------------------------------------------------------------------------------------------------//
             // Attempt to get request data again. This should fail since we've already logged out.
 
-            uri = new Uri("http://10.0.2.2:80/test/application_files/get_request_data.php");
+            uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/get_request_data.php");
 
             try
             {
@@ -563,7 +624,7 @@ namespace SPOT_App
         {
             Debug.WriteLine("********** RestService.test_POST() START **********");
 
-            var uri = new Uri("http://10.0.2.2:80/test/application_files/echo_POST.php");
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/echo_POST.php");
 
             try
             {
