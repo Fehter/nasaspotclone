@@ -113,7 +113,7 @@ class User
     // It will return the query results to the PHP file that called this function.
     function login()
     {        
-        $query = "SELECT email, password FROM spot.".$this->user_table_name." WHERE email='".$this->email."' AND password='".$this->password."'";
+        $query = "SELECT email, password, isTeacher, isAdministrator FROM spot.".$this->user_table_name." WHERE email='".$this->email."' AND password='".$this->password."'";
         // The above query is equivalent to this following example query assuming email == "testuseremail1@test.com" and password == "password1":
         // SELECT email, password FROM spot.users WHERE email='testuseremail1@test.com' AND password='password1'
         
@@ -128,7 +128,7 @@ class User
         
         catch(PDOException $e)
         {
-            //echo "PHP web service: user.php: login(): PDOException: " . $e->getMessage().PHP_EOL;
+            echo "PHP web service: user.php: login(): PDOException: " . $e->getMessage().PHP_EOL;
         }  
         
         return $statement;
@@ -139,11 +139,13 @@ class User
         $this->password = $password;
     }    
 	
+	//This function will query the database for the remaining user information, and return the query results
+	
 	function getUserData()
     {        
-        $query = "SELECT email,first_name,last_name,phone_number,IsAmbassador,isPresenter,isAdministrator FROM spot.users WHERE email='".$this->email."'";
+        $query = "SELECT email,first_name,last_name,phone_number,IsAmbassador,isTeacher,isAdministrator FROM spot.users WHERE email='".$this->email."'";
         // The above query is equivalent to this following example query assuming email == "testuseremail1@test.com" and password == "password1":
-        // SELECT email, password FROM spot.users WHERE email='testuseremail1@test.com' AND password='password1'
+        // SELECT email,first_name,last_name,phone_number,IsAmbassador,isPresenter,isAdministrator WHERE email=$_SESSION['logged_in_user_email']
         
         try
         {           
@@ -161,5 +163,39 @@ class User
         
         return $statement;
     }  
+	function addUser($email, $password, $firstName, $lastName, $phoneNumber, $isAmbassador, $isTeacher, $isAdmin)
+	{
+		// Define the query that should be executed on the database.
+        // NOTE: the "." indicates a concatenation -- I am concatenating values from the POST superglobal into the query string.
+		try
+        {
+			
+            // Prepare the query by calling the "prepare()" function of the PDO object "connection".
+            // This prepare() function returns an executable "statement" object.
+			$preparedStatement = $this->connection->prepare("INSERT INTO spot.users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)".
+		        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+				
+			$preparedStatement->bindParam(1, $email, PDO::PARAM_STR);
+			$preparedStatement->bindParam(2, $password, PDO::PARAM_STR);
+			$preparedStatement->bindParam(3, $firstName, PDO::PARAM_STR);
+			$preparedStatement->bindParam(4, $lastName, PDO::PARAM_STR);
+			$preparedStatement->bindParam(5, $phoneNumber, PDO::PARAM_STR);
+			$preparedStatement->bindParam(6, $isAmbassador, PDO::PARAM_INT);
+			$preparedStatement->bindParam(7, $isTeacher, PDO::PARAM_INT);
+			$preparedStatement->bindParam(8, $isAdmin, PDO::PARAM_INT);
+				
+            // Execute the statement -- this causes the values from the POST to be inserted into the SQL database.
+            // To be sure that this statement actually did something, you should look at the database table you attempted to insert data into.
+            $preparedStatement->execute();
+			$preparedStatement->closeCursor();
+			echo "User has been created"."<br>";
+           
+        }
+        
+        catch(PDOException $e)
+        {
+            echo "PHP web service: user.php: addUser(): Failed to add user" . $e->getMessage().PHP_EOL;
+        }
+	}
 }
 ?>

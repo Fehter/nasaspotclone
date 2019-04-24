@@ -5,8 +5,8 @@ class Database
     // $server_name, $database_name, $database_connection_username, and $database_connection_password are used to connect to a specific SQL database with a specific connection (in this case the connection is "test1").
     private $server_name = "localhost";
     private $database_name = "spot";
-    private $database_connection_username = "test1";
-    private $database_connection_password = "test1";
+    private $database_connection_username = "";
+    private $database_connection_password = "";
     
     // This data member will contain the connection to the SQL database.
     public $connection;
@@ -14,11 +14,14 @@ class Database
     // A function that attempts to create a connection to the SQL database.
     // If this function is successful, it will return the connection.
     public function getConnection()
-    {
+    {	
+		$database_connection_username = $this->getValue("Username");
+		$database_connection_password = $this->getValue("Password");
+		
         try 
         {
             // Create the connection.
-            $this->connection = new PDO("mysql:host=" . $this->server_name . ";dbname=" . $this->database_name, $this->database_connection_username, $this->database_connection_password);
+            $this->connection = new PDO("mysql:host=" . $this->server_name . ";dbname=" . $this->database_name, $database_connection_username, $database_connection_password);
             
             // Set ERRMODE attribute of the PDO such that, if something goes wrong, it will throw an Exception.
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -38,5 +41,13 @@ class Database
         
         return $this->connection;
     }
+		
+	function getValue($key)
+	{
+		$ini_array = parse_ini_file("../database.properties");
+		$value =  $ini_array[$key];
+		return $value;
+	}
+
 }
 ?>

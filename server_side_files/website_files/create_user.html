@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    
+        <title>2018-2019 SPOT Login</title>
+
+		<h1><center><font color=#000000><i>Create a User</i></font></center></h1>
+    </head>
+
+    <body>
+		<div class="requestFormContainer">
+			
+			<form action="create_user.php" id="loginFormID" class="requestFormClass" method="post" onsubmit="return validateAtLeastOneCheckbox()">
+            	
+				<label for="email">Email</label>
+				<input type="text" id="email" name="email" placeholder="example@gmail.com" required>
+				
+				<label for="password">Password</label>
+				<input type="password" encrypt="sha2" id="password" name="password"  placeholder="" required>
+						
+				<label for="firstName">First Name</label>
+				<input type="text" id="firstName" name="firstName" placeholder="ex: John" required>
+				
+				<label for="lastName">Last Name</label>
+				<input type="text" id="lastName" name="lastName" placeholder="ex: Smith" required>
+				
+				<label for="phoneNumber">Phone Number</label>
+				<input type="text" id="phoneNumber" name="phoneNumber" placeholder="ex: Smith" required>
+						
+				<label for="isAmbassador">Is the user an ambassador?</label>
+				<input type="checkbox" id="isAmbassador" name="isAmbassador"><br>
+				
+				<label for="isTeacher">Is the user a teacher?</label>
+				<input type="checkbox" id="isTeacher" name="isTeacher"><br>
+				
+				<label for="isAdmin">Is the user an administrator?</label>
+				<input type="checkbox" id="isAdmin" name="isAdmin"><br><br>
+				
+				<input type="submit" name ="submit" value="Submit">
+			</form>
+			
+		</div>
+		<script type ="text/javascript">
+	
+				function validateAtLeastOneCheckbox()
+				{
+					console.log("inside: validateAtLeastOneCheckbox");
+					console.log(document.getElementById("isAmbassador").checked);
+					if(document.getElementById("isAmbassador").checked == true || document.getElementById("isTeacher").checked == true || document.getElementById("isAdmin").checked == true)
+					{
+		
+						return true;
+		
+					}
+					else
+					{
+		
+						window.alert("You must check at least one checkbox.");
+						return false;
+						
+					}
+
+				}
+		
+		</script>
+		
+	</body>
+</html>
