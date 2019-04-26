@@ -37,15 +37,15 @@ else
    
 	$row = $statement->fetch();
     // Construct an array that represents a user from the query result.
-    // NOTE: the name of the key (for example the key "Email") MUST match the name of the property of the RequestViewModel class back in the Xamarin application.
-    // This is because, when the JsonConvert.DeserializeObject() function is called in the application, it will look for keys in this array that correspond to properties of the RequestViewModel object.
+    // NOTE: the name of the key (for example the key "Email") MUST match the name of the property of the USer class back in the Xamarin application.
+    // This is because, when the JsonConvert.DeserializeObject() function is called in the application, it will look for keys in this array that correspond to properties of the User object.
     // If the array key matches the property of the object, then it will set the property of the object to the value associated with the matching key.
     $user_data = array("Email" => $row['email'],
         "FirstName" => $row['first_name'],
         "LastName" => $row['last_name'],
         "PrimaryPhoneNumber" => $row['phone_number'],
 		"IsAmbassador" => $row['IsAmbassador'],
-		"IsPresenter" => $row['isPresenter'],
+		"IsTeacher" => $row['isTeacher'],
 		"IsAdmin" => $row['isAdministrator']);
         
     
@@ -56,7 +56,7 @@ else
     //
     //      string responseContent = await response.Content.ReadAsStringAsync(); // Pull the encoded JSON array out of the HTTP response.
     //
-    //      List<RequestViewModel> rvmList = JsonConvert.DeserializeObject<List<RequestViewModel>>(responseContent); // Deserialize (as in unencode) the JSON array and construct a List of RequestViewModel objects from it.
+    //      user = JsonConvert.DeserializeObject<User>(responseContent); // Deserialize (as in unencode) the JSON array and construct a User
     echo json_encode($user_data);
 }
 ?>
