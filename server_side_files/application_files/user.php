@@ -113,7 +113,7 @@ class User
     // It will return the query results to the PHP file that called this function.
     function login()
     {        
-        $query = "SELECT email, password FROM spot.".$this->user_table_name." WHERE email='".$this->email."' AND password='".$this->password."'";
+        $query = "SELECT email, password, isTeacher, isAdministrator FROM spot.".$this->user_table_name." WHERE email='".$this->email."' AND password='".$this->password."'";
         // The above query is equivalent to this following example query assuming email == "testuseremail1@test.com" and password == "password1":
         // SELECT email, password FROM spot.users WHERE email='testuseremail1@test.com' AND password='password1'
         
