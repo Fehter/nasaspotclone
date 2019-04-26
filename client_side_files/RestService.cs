@@ -732,5 +732,91 @@ namespace SPOT_App
 
             Debug.WriteLine("********** RestService.DisplayGoogleMapsDirections() END **********");
         }
+		
+		
+		
+		 public async Task<bool> CheckAcceptanceOfRequest(String presentationID, String email)
+        {
+            Debug.WriteLine("********* CheckAcceptanceOfRequest() START ***************" +"\n\npresentationID:"+presentationID);
+
+             Uri uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/check_acceptance.php");
+
+             try
+             {
+                 FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                 {
+                     new KeyValuePair<string,string>("presentationID",presentationID),
+                     new KeyValuePair<string, string>("email",email)
+                 });
+
+                 HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+
+                 string responseContent = await response.Content.ReadAsStringAsync();
+
+                 Debug.WriteLine("responseContent:" + responseContent);
+                 //Make sure the string is not null and wont crash the program.
+                 if(String.IsNullOrEmpty(responseContent) || String.IsNullOrWhiteSpace(responseContent))
+                 {
+                    //Returning true because nothing will happen if this returns true.\
+                    Debug.WriteLine("inside the condition to check if null or empty....");
+                     isAccepted = true;
+                 }
+                 //Check if check_acceptance.php returned false, which means no one has accpeted the request yet.
+                 else if(responseContent.Equals("False"))
+                 {
+                     isAccepted = false;
+                 }
+                 //Check if check_acceptance.php returned true, which means someone has accepted the request.
+                 else if (responseContent.Equals("True"))
+                 {
+                     isAccepted = true;
+                 }
+
+                Debug.WriteLine("********* CheckAcceptanceOfRequest() END ***************");
+                return isAccepted;
+             }
+
+             catch (Exception e)
+             {
+
+                Debug.Fail("Error in checkAcceptanceOfRequest()");
+                Debug.WriteLine(e);
+                //Since returing true does nothing this does no harm.
+                return true;
+            }
+             
+        }
+
+        public async Task<bool> AcceptRequest(String presentationID, String email)
+        {
+            Debug.WriteLine("***************** AcceptRequest() START ****************");
+
+            var uri = new Uri("http://75.108.69.184:1337/server_side_files/application_files/accept_request.php");
+            string userEmail = user.Email;
+            Debug.WriteLine("userEmail:" + userEmail);
+            try
+            {
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(new[]
+                 {
+                     new KeyValuePair<string,string>("presentationID",presentationID),
+                     new KeyValuePair<string, string>("teacherEmail",email),
+                     new KeyValuePair<string, string>("ambassadorEmail",userEmail)
+                 });
+
+                HttpResponseMessage response = await client.PostAsync(uri, formUrlEncodedContent);
+
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine("responseContent:" + responseContent);
+                return true;
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("ERROR INSIDE AcceptRequest()");
+                Debug.WriteLine(e);
+                return false;
+            }
+        }
+    }
     }
 }
