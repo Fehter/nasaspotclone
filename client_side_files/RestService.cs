@@ -30,6 +30,7 @@ namespace SPOT_App
         HttpClient client;
         User user;
         LoginResponse loginResponse;
+        bool isAccepted;
         // Default constructor.
         public RestService()
         {
@@ -817,6 +818,5 @@ namespace SPOT_App
                 return false;
             }
         }
-    }
     }
 }
