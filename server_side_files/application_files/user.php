@@ -192,9 +192,66 @@ class User
         
         catch(PDOException $e)
         {
-          //  echo "PHP web service: user.php: addUser(): Failed to add user" . $e->getMessage().PHP_EOL;
+            echo "PHP web service: user.php: addUser(): Failed to add user" . $e->getMessage().PHP_EOL;
 			return "Failed";
         }
+	}
+	function checkAcceptance($presentationID, $email)
+	{
+		$query = "SELECT ambassador_email FROM spot.presentations WHERE presentationID = '". $presentationID."'";
+		
+		try
+		{
+			
+			$statement = $this->connection->prepare($query);
+			
+			$statement->execute();
+			
+		
+		}
+		catch(PDOException $e)
+		{
+			echo "PHP web service: user.php: checkAcceptance(): PDOException: " . $e->getMessage().PHP_EOL;
+		}
+		return $statement;
+	}
+	
+	function accept_request($teacher_email, $presentationID, $ambassador_email)
+	{
+		try
+		{
+			$query = "UPDATE `spot`.`presentations` SET `ambassador_email` = '".$ambassador_email."' WHERE (`presentationID` = "."'".$presentationID."'".") AND (`teacher_email` = '".$teacher_email."');";
+			#echo "$query =".$query;
+			#UPDATE `spot`.`presentations` SET `ambassador_email` = "aa" WHERE (`presentationID` = '1') AND (`teacher_email` = "testuseremail1@test.com");
+			$preparedStatement = $this->connection->prepare($query);
+				
+			#$preparedStatement->bind_param("sss", $ambassador_email, $presentationID, $teacher_email);
+     
+			$preparedStatement->execute();
+		#	$preparedStatement->close();
+			
+			return "Successfully updated ambassador_email";
+		}
+		catch(PDOException $e)
+		{
+			echo "PHP web servie: user.php: accept_request(): ". $e->getMessage().PHP_EOL;
+			return "Failed to update ambassador_email";
+		}
+	}
+	
+	
+	function search($stringToSearchFor)
+	{
+		try
+		{
+			$preparedStatement = "SELECT * FROM `spot`.`presentations` WHERE (`teach_email` LIKE '%?%') OR (`amabassador_email` LIKE '%?%') OR (`contactEmail` LIKE '%?%') OR (`contact_email` LIKE '%?%') OR (`notes` LIKE '%?%') OR (`time_date_created` LIKE '%?%') OR (`organization_name` LIKE '%?%') OR (`grade_level` LIKE '%?%') OR (`number_of_presentations` LIKE '%?%')
+OR (`number_of_students_persentation` LIKE '%?%') OR (`subject_requested` LIKE '%?%') OR (`concerns` LIKE '%?%') OR (`preferred_days` LIKE '%?%') OR (`contact_times` LIKE '%?%')  OR (`hands_on_activities` LIKE '%?%')  OR (`can_pay_fee` LIKE '%?%') OR (`legal_agreement` LIKE '%?%')  OR (`supplies` LIKE '%?%') OR (`propose_time_date` LIKE '%?%')
+ OR (`organization_street_address` LIKE '%?%')  OR (`organization_zip` LIKE '%?%')  OR (`organization_city` LIKE '%?%')  OR (`organization_state` LIKE '%?%')  OR (`contactTimes` LIKE '%?%')  OR (`handsOnActivites` LIKE '%?%')  OR (`canPayFee` LIKE '%?%') OR (`legalAgreement` LIKE '%?%');";
+		}
+		catch(PDOException $e)
+		{
+			echo "PHP web servie: user.php: search(): ". $e->getMessage().PHP_EOL;
+		}
 	}
 }
 ?>

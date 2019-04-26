@@ -58,22 +58,30 @@ else if (isset($_POST['maxNumRowsToGet']) && isset($_POST['startRowOffset']))
             // NOTE: the name of the key (for example the key "Email") MUST match the name of the property of the RequestViewModel class back in the Xamarin application.
             // This is because, when the JsonConvert.DeserializeObject() function is called in the application, it will look for keys in this array that correspond to properties of the RequestViewModel object.
             // If the array key matches the property of the object, then it will set the property of the object to the value associated with the matching key.
-            $request = array("Email" => $row['email'],
+            $request = array(
+				"PresentationId" => $row['presentationID'],	
+				"Email" => $row['email'],
                 "FirstName" => $row['first_name'],
+				"ContactTimes" => $row['contact_times'],
+				"Supplies" => $row['supplies'],
+				"TravelFee" => $row['can_pay_fee'],
                 "LastName" => $row['last_name'],
                 "PrimaryPhoneNumber" => $row['phone_number'],
                 "notes" => $row['notes'],
                 "OrganizationName" => $row['organization_name'],
                 "GradeLevels" => $row['grade_level'],
-                "number_of_presentations" => $row['number_of_presentations'],
-                "number_of_students_per_presentation" => $row['number_of_students_per_presentation'],
-                "subject_requested" => $row['subject_requested'],
+                "PresentationRotations" => $row['number_of_presentations'],
+                "NumberOfStudents" => $row['number_of_students_per_presentation'],
+                "SubjectRequested" => $row['subject_requested'],
+				"hands_on_activities" => $row['hands_on_activities'],
                 "OtherConcerns" => $row['concerns'],
-                "proposed_time_date" => $row['proposed_time_date'],
+				"PreferredDays" => $row['preferred_days'],
+                "ProposedDateAndTime" => $row['proposed_time_date'],
                 "organization_street_address" => $row['organization_street_address'],
                 "organization_zip" => $row['organization_zip'],
                 "organization_city" => $row['organization_city'],
-                "organization_state" => $row['organization_state']);
+                "organization_state" => $row['organization_state'],
+				"AmbassadorStatus" => $row['legal_agreement']);
             
             // Add the request array to the requests array.
             array_push($requests, $request);
