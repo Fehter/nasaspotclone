@@ -35,8 +35,7 @@ namespace SPOT_App
                 PrimaryPhoneNumber = "test PrimaryPhoneNumber " + x,
                 AlternativePhoneNumber = "test AlternativePhoneNumber " + x,
                 ContactTimes = "test ContactTimes " + x,
-                PresentationLocation = " 8                       th Avenue\n\r\r                  \r               \n\n,\rNY   \r",
-                PresentationRequested = "test PresentationRequested " + x,
+                PresentationLocation = "test PresentationLocation " + x,
                 PresentationRotations = "test PresentationRotations " + x,
                 HandsOnActivity = "test HandsOnActivity " + x,
                 GradeLevels = "test GradeLevels " + x,
@@ -74,7 +73,7 @@ namespace SPOT_App
 
             //restService.testPasswordHashing();
 
-            //restService.DisplayGoogleMapsDirections(requestViewModel);
+            //restService.checkAcceptanceOfRequest();
 
             // The following login() calls will all fail (assuming you are using Kyle's database):
             //restService.login("testuseremail11@test.com", "password1");

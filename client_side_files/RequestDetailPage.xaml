@@ -38,11 +38,6 @@
                 </StackLayout>
 
                 <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
-                    <Label Text="Alternative Phone Number:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Label Text="{Binding AlternativePhoneNumber}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
-                </StackLayout>
-
-                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
                     <Label Text="Contact Times:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
                     <Label Text="{Binding ContactTimes}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
                 </StackLayout>
@@ -54,7 +49,7 @@
 
                 <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
                     <Label Text="Presentation Requested:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Label Text="{Binding PresentationRequested}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="{Binding SubjectRequested}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
@@ -101,12 +96,7 @@
                     <Label Text="Other Concerns:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
                     <Label Text="{Binding OtherConcerns}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
                 </StackLayout>
-
-                <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
-                    <Label Text="Presentation Alternative Method:" FontSize="{StaticResource headerFontSize}" TextColor="{StaticResource headerTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Label Text="{Binding PresentationAlternativeMethod}" FontSize="{StaticResource contentFontSize}" TextColor="{StaticResource contentTextColor}" HorizontalOptions="Start" VerticalOptions="Center"/>
-                </StackLayout>
-
+                
                 <StackLayout Spacing="0" Padding="0" Orientation="Vertical">
                     <Button Text="Accept Request" FontSize="13" Clicked="AcceptRequest_Button_Clicked" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </StackLayout>

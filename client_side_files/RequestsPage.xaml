@@ -3,9 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPOT_App.RequestsPage"
              Title="Requests">
-
-    <ListView x:Name="requests"            
-            ItemTapped="Handle_RequestTapped"            
-            CachingStrategy="RecycleElement">
-    </ListView>
+    <StackLayout>
+        
+       
+            <ListView x:Name="requests"            
+                    ItemTapped="Handle_RequestTapped"            
+                    CachingStrategy="RecycleElement">
+            </ListView>
+        
+            <StackLayout Spacing="0" Padding="0" Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text ="Back" FontSize="12" Clicked="Back_Button_Clicked" HorizontalOptions="Center" 
+                        VerticalOptions="Center" />
+            
+                <Button Text ="Next" FontSize="12" Clicked="Next_Button_Clicked" HorizontalOptions="Center" 
+                        VerticalOptions="Center" />
+            </StackLayout>
+    </StackLayout>
 </ContentPage>

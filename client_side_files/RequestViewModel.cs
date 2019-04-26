@@ -16,6 +16,7 @@ namespace SPOT_App.ViewModels
         // in a .xaml file because the "{Binding OrganizationName}" would not be able to "get" the information.
         // Take this with some salt though -- I'm not comfortable with this yet.
         //public string ID { get; set; }
+        public string PresentationID { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
         public string FirstName { get; set; }
@@ -36,7 +37,13 @@ namespace SPOT_App.ViewModels
         public string AmbassadorStatus { get; set; } // This relates to the "I understand that ambassadors are not ... and I take responsibility for them ..." column of the spreadsheet. This field should always say "Yes"
         public string OtherConcerns { get; set; }
         public string PresentationAlternativeMethod { get; set; } // This relates to the "Interested in alternative ways to receive a presentation?" column.
-
+        public string organization_street_address { get; set;}
+        public string organization_zip { get; set; }
+        public string organization_city { get; set; }
+        public string organization_state { get; set; }
+        public string number_of_presentations { get; set; }
+        public string PreferredDays { get; set; }
+        public string SubjectRequested { get; set; }
         // This function returns a "FormUrlEncodedContent" object constructed from an array of KeyValuePair objects.
         // Each KeyValuePair object is constructed from the name and contents of each get/set function of this RequestViewModel class.
         // The object returned by this function is then send (by the RestService class) as part of POST request to the PHP web service.
@@ -98,25 +105,28 @@ namespace SPOT_App.ViewModels
         public string GetContents() // Utility function to quickly get contents of all data members.
         {
             return
-                Email + "\n" +
-                FirstName + "\n" +
-                LastName + "\n" +
-                OrganizationName + "\n" +                
-                PrimaryPhoneNumber + "\n" +
-                AlternativePhoneNumber + "\n" +
-                ContactTimes + "\n" +
-                PresentationLocation + "\n" +
-                PresentationRequested + "\n" +
-                PresentationRotations + "\n" +
-                HandsOnActivity + "\n" +
-                GradeLevels + "\n" +
-                NumberOfStudents + "\n" +
-                ProposedDateAndTime + "\n" +
-                Supplies + "\n" +
-                TravelFee + "\n" +
-                AmbassadorStatus + "\n" +
-                OtherConcerns + "\n" +
-                PresentationAlternativeMethod + "\n";
-        }
+                "PresentationID:" +PresentationID+"\n"+
+                "Email:"+Email + "\n" +
+                "FirstName:"+FirstName + "\n" +
+                "LastName:"+LastName + "\n" +
+                "PresentationLocation:"+PresentationLocation + "\n" +
+                "OrganizationName:" + OrganizationName + "\n" +
+                "PrimaryPhoneNumber:" + PrimaryPhoneNumber + "\n" +
+                "AlternativePhoneNumber:" + AlternativePhoneNumber + "\n" +
+                "ContactTimes:" + ContactTimes + "\n" +
+                "PresentationLocation:" + PresentationLocation + "\n" +
+                "PresentationRotations:" + PresentationRotations + "\n" +
+                "HandsOnActivity:" + HandsOnActivity + "\n" +
+                "GradeLevels:" + GradeLevels + "\n" +
+                "NumberOfStudents:" + NumberOfStudents + "\n" +
+                "ProposedDateAndTime:" + ProposedDateAndTime + "\n" +
+                "Supplies:" + Supplies + "\n" +
+                "TravelFee:" + TravelFee + "\n" +
+                "AmbassadorStatus:" + AmbassadorStatus + "\n" +
+                "OtherConcerns:" + OtherConcerns + "\n" +
+                "PresentationAlternativeMethod:" + PresentationAlternativeMethod + "\n"+
+                "SubjectRequested:" + SubjectRequested + "\n"+
+                "PreferredDays:"+ PreferredDays+"\n"
+        ; }
     }   
 }
