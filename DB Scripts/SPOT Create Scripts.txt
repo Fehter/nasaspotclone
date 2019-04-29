@@ -8,7 +8,7 @@ first_name VARCHAR(100) NOT NULL,
 last_name VARCHAR(100) NOT NULL,
 phone_number VARCHAR(30),
 isAmbassador TINYINT(1) NOT NULL,
-isPresenter TINYINT(1) NOT NULL,
+isTeacher TINYINT(1) NOT NULL,
 isAdministrator TINYINT(1) NOT NULL
 );
 
