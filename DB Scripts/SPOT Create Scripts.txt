@@ -45,74 +45,93 @@ FOREIGN KEY (ambassador_email) REFERENCES Users(email)
 USE spot;
 
 CREATE VIEW spot.GetAllPresentations AS
-	SELECT U.email, U.first_name, U.last_name, U.phone_number, P.notes,
-			P.organization_name, P.grade_level, P.number_of_presentations,
-            P.number_of_students_per_presentation, P.subject_requested,
-            P.concerns,P.preferred_days, P.proposed_time_date,
-            P.organization_street_address, P.organization_zip,
-            P.organization_city, P.organization_state
+	SELECT `p`.`presentationID` AS `presentationID`,
+        `u`.`email` AS `email`,
+        `p`.`ambassador_email` AS `ambassador_email`,
+        `u`.`first_name` AS `first_name`,
+        `u`.`last_name` AS `last_name`,
+        `u`.`phone_number` AS `phone_number`,
+        `p`.`notes` AS `notes`,
+        `p`.`organization_name` AS `organization_name`,
+        `p`.`grade_level` AS `grade_level`,
+        `p`.`hands_on_activities` AS `hands_on_activities`,
+        `p`.`number_of_presentations` AS `number_of_presentations`,
+        `p`.`number_of_students_per_presentation` AS `number_of_students_per_presentation`,
+        `p`.`subject_requested` AS `subject_requested`,
+        `p`.`concerns` AS `concerns`,
+        `p`.`supplies` AS `supplies`,
+        `p`.`can_pay_fee` AS `can_pay_fee`,
+        `p`.`preferred_days` AS `preferred_days`,
+        `p`.`proposed_time_date` AS `proposed_time_date`,
+        `p`.`contact_times` AS `contact_times`,
+        `p`.`organization_street_address` AS `organization_street_address`,
+        `p`.`organization_zip` AS `organization_zip`,
+        `p`.`organization_city` AS `organization_city`,
+        `p`.`legal_agreement` AS `legal_agreement`,
+        `p`.`organization_state` AS `organization_state`
 	FROM Users U, Presentations P
 	WHERE U.email = P.teacher_email;
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail1@test.com', 'password1', 'Fname1', 'Lname1', '304-555-5501', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail2@test.com', 'password2', 'Fname2', 'Lname2', '304-555-5502', 0, 1, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail3@test.com', 'password3', 'Fname3', 'Lname3', '304-555-5503', 0, 0, 1);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail4@test.com', 'password4', 'Fname4', 'Lname4', '304-555-5504', 1, 1, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail5@test.com', 'password5', 'Fname5', 'Lname5', '304-555-5505', 1, 0, 1);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail6@test.com', 'password6', 'Fname6', 'Lname6', '304-555-5506', 0, 1, 1);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail7@test.com', 'password7', 'Fname7', 'Lname7', '304-555-5507', 0, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail8@test.com', 'password8', 'Fname8', 'Lname8', '304-555-5508', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail9@test.com', 'password9', 'Fname9', 'Lname9', '304-555-5509', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail10@test.com', 'password10', 'Fname10', 'Lname10', '304-555-5510', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail11@test.com', 'password11', 'Fname11', 'Lname11', '304-555-5511', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail12@test.com', 'password12', 'Fname12', 'Lname12', '304-555-5512', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail13@test.com', 'password13', 'Fname13', 'Lname13', '304-555-5513', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail14@test.com', 'password14', 'Fname14', 'Lname14', '304-555-5514', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail15@test.com', 'password15', 'Fname15', 'Lname15', '304-555-5516', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail16@test.com', 'password16', 'Fname16', 'Lname16', '304-555-5516', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail17@test.com', 'password17', 'Fname17', 'Lname17', '304-555-5518', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail18@test.com', 'password18', 'Fname18', 'Lname18', '304-555-5518', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail19@test.com', 'password19', 'Fname19', 'Lname19', '304-555-5519', 1, 0, 0);
 
-INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isPresenter, isAdministrator)
+INSERT INTO Users (email, password, first_name, last_name, phone_number, isAmbassador, isTeacher, isAdministrator)
 VALUES ('testuseremail20@test.com', 'password20', 'Fname20', 'Lname20', '304-555-5520', 1, 0, 0);
+
 
 INSERT INTO Presentations (presentationID, teacher_email, ambassador_email, notes, time_date_created,
  organization_name, grade_level, number_of_presentations, number_of_students_per_presentation, 
